@@ -141,6 +141,20 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"ar/gasvergleich-deutschland-2026.md": {
+	id: "ar/gasvergleich-deutschland-2026.md";
+  slug: "ar/gasvergleich-deutschland-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"ar/handyvertrag-deutschland-erklaert.md": {
+	id: "ar/handyvertrag-deutschland-erklaert.md";
+  slug: "ar/handyvertrag-deutschland-erklaert";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "ar/last-minute-tipps.md": {
 	id: "ar/last-minute-tipps.md";
   slug: "ar/last-minute-tipps";
@@ -155,6 +169,34 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"ar/stromanbieter-wechseln-2026.md": {
+	id: "ar/stromanbieter-wechseln-2026.md";
+  slug: "ar/stromanbieter-wechseln-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"ar/stromvergleich-deutschland-2026.md": {
+	id: "ar/stromvergleich-deutschland-2026.md";
+  slug: "ar/stromvergleich-deutschland-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/gasvergleich-deutschland-2026.md": {
+	id: "de/gasvergleich-deutschland-2026.md";
+  slug: "de/gasvergleich-deutschland-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/handyvertrag-deutschland-erklaert.md": {
+	id: "de/handyvertrag-deutschland-erklaert.md";
+  slug: "de/handyvertrag-deutschland-erklaert";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "de/last-minute-tipps.md": {
 	id: "de/last-minute-tipps.md";
   slug: "de/last-minute-tipps";
@@ -162,9 +204,30 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"de/pauschalreisen-tuerkei-2026.md": {
+	id: "de/pauschalreisen-tuerkei-2026.md";
+  slug: "de/pauschalreisen-tuerkei-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "de/strom-sparen-tipps.md": {
 	id: "de/strom-sparen-tipps.md";
   slug: "de/strom-sparen-tipps";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/stromanbieter-wechseln-2026.md": {
+	id: "de/stromanbieter-wechseln-2026.md";
+  slug: "de/stromanbieter-wechseln-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/stromvergleich-deutschland-2026.md": {
+	id: "de/stromvergleich-deutschland-2026.md";
+  slug: "de/stromvergleich-deutschland-2026";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
