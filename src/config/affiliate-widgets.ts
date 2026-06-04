@@ -109,10 +109,10 @@ export const finanzenWidget: WidgetConfig = {
 };
 
 export const girokontoWidget: WidgetConfig = {
-  providerName: `<div style="width: 100%" id="tcpp-iframe-giro"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-giro/giro-iframe.js"></script>
-`,
+  providerName: '',
   // ↓ PASTE YOUR GIROKONTO AFFILIATE WIDGET CODE HERE
-  htmlCode: '',
+  htmlCode: `<div style="width: 100%" id="tcpp-iframe-giro"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-giro/giro-iframe.js"></script>
+`,
   titleDe: 'Girokonto Vergleich',
   titleAr: 'مقارنة الحسابات الجارية',
   descriptionDe: 'Kostenlose Girokonten vergleichen und das beste Konto finden.',
