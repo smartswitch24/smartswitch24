@@ -87,7 +87,7 @@ export const gasCalculator: WidgetConfig = {
 export const pauschalreisenWidget: WidgetConfig = {
   providerName: '',
   // ↓ PASTE YOUR TRAVEL AFFILIATE WIDGET CODE HERE
-  htmlCode: '<div style="width: 100%" id="c24pp-package-iframe" data-offer="allgemein" data-scrollto="begin" data-forward-url="no"></div><script src="https://files.check24.net/widgets/auto/864696/c24pp-package-iframe/package-iframe.js"></script>',
+  htmlCode: `<div style="width: 100%" id="c24pp-package-iframe" data-offer="allgemein" data-scrollto="begin" data-forward-url="no"></div><script src="https://files.check24.net/widgets/auto/864696/c24pp-package-iframe/package-iframe.js"></script>`,
   titleDe: 'Pauschalreisen vergleichen',
   titleAr: 'قارن رحلات السفر',
   descriptionDe: 'Vergleichen Sie Reiseangebote von führenden Veranstaltern.',
@@ -109,8 +109,8 @@ export const finanzenWidget: WidgetConfig = {
 };
 
 export const girokontoWidget: WidgetConfig = {
-  providerName: '<div style="width: 100%" id="tcpp-iframe-giro"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-giro/giro-iframe.js"></script>
-',
+  providerName: `<div style="width: 100%" id="tcpp-iframe-giro"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-giro/giro-iframe.js"></script>
+`,
   // ↓ PASTE YOUR GIROKONTO AFFILIATE WIDGET CODE HERE
   htmlCode: '',
   titleDe: 'Girokonto Vergleich',
