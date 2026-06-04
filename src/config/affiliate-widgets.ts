@@ -99,7 +99,8 @@ export const pauschalreisenWidget: WidgetConfig = {
 export const finanzenWidget: WidgetConfig = {
   providerName: '',
   // ↓ PASTE YOUR FINANCE OVERVIEW WIDGET CODE HERE
-  htmlCode: '',
+  htmlCode: `<div style="width: 100%" id="tcpp-iframe-kredit" data-duration="12" data-purpose="8" data-amount="5000"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-kredit/kredit-iframe.js"></script>
+`,
   titleDe: 'Finanzprodukte vergleichen',
   titleAr: 'قارن المنتجات المالية',
   descriptionDe: 'Girokonten, Kreditkarten, Tagesgeld und Depot auf einen Blick.',
@@ -124,7 +125,8 @@ export const girokontoWidget: WidgetConfig = {
 export const kreditkartenWidget: WidgetConfig = {
   providerName: '',
   // ↓ PASTE YOUR KREDITKARTEN AFFILIATE WIDGET CODE HERE
-  htmlCode: '',
+  htmlCode: `<div style="width: 100%" id="tcpp-iframe-cc"></div><script src="https://form.partner-versicherung.de/widgets/181038/tcpp-iframe-cc/cc-iframe.js"></script>
+`,
   titleDe: 'Kreditkarten Vergleich',
   titleAr: 'مقارنة بطاقات الائتمان',
   descriptionDe: 'Kreditkarten mit Cashback, Reiseversicherung und ohne Jahresgebühr vergleichen.',
