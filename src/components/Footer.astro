@@ -1,0 +1,59 @@
+---
+import { de } from '../i18n/de';
+import { ar } from '../i18n/ar';
+
+interface Props { lang: 'de' | 'ar'; }
+const { lang } = Astro.props;
+const t = lang === 'de' ? de : ar;
+const b = `/${lang}`;
+---
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo">Smart<span>Switch</span>24</div>
+      <p style="margin-top:10px;font-size:.85rem;max-width:240px;">{t.footer_tagline}</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer_energy}</h4>
+      <a href={`${b}/stromvergleich/`}>{t.footer_electricity}</a>
+      <a href={`${b}/gasvergleich/`}>{t.footer_gas}</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer_devices}</h4>
+      <a href={`${b}/handyvertraege/`}>{t.footer_handyvertraege}</a>
+      <a href={`${b}/smartphones/`}>{t.footer_smartphones}</a>
+      <a href={`${b}/tablets/`}>{t.footer_tablets}</a>
+      <a href={`${b}/smartwatches/`}>{t.footer_smartwatches}</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer_travel}</h4>
+      <a href={`${b}/pauschalreisen/`}>{t.footer_pauschalreisen}</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer_finance}</h4>
+      <a href={`${b}/finanzen/`}>{t.footer_finanzen}</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer_legal}</h4>
+      <a href={`${b}/impressum/`}>{t.footer_impressum}</a>
+      <a href={`${b}/datenschutz/`}>{t.footer_privacy}</a>
+      <a href={`${b}/ueber-uns/`}>{t.footer_ueber_uns}</a>
+      <a href={`${b}/kontakt/`}>{t.footer_kontakt}</a>
+      <button type="button" id="cookie-settings-btn" class="footer-cookie-btn">{t.footer_cookie_settings}</button>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>{t.footer_copyright}</span>
+    <span>
+      <a href={`${b}/impressum/`} style="color:rgba(255,255,255,.55);">{t.footer_impressum}</a>
+      &nbsp;·&nbsp;
+      <a href={`${b}/datenschutz/`} style="color:rgba(255,255,255,.55);">{t.footer_privacy_short}</a>
+    </span>
+  </div>
+</footer>

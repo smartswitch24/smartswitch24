@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import AffiliateNotice from '../../../components/AffiliateNotice.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import { de as t } from '../../../i18n/de';
+import { stromCalculator } from '../../../config/affiliate-widgets';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/stromvergleich/`;
+const alternateUrl = `${siteUrl}/ar/stromvergleich/`;
+
+const faqs = [
+  { q: t.strom_faq1_q, a: t.strom_faq1_a },
+  { q: t.strom_faq2_q, a: t.strom_faq2_a },
+  { q: t.strom_faq3_q, a: t.strom_faq3_a },
+  { q: t.strom_faq4_q, a: t.strom_faq4_a },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: t.strom_meta_title,
+  description: t.strom_meta_description,
+  url: canonical,
+};
+---
+<BaseLayout title={t.strom_meta_title} description={t.strom_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl} structuredData={structuredData}>
+  <Header lang={lang} activePage="stromvergleich" />
+  <AffiliateNotice lang={lang} variant="full" />
+
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.strom_page_title}</h1>
+      <p>{t.strom_page_subtitle}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.strom_steps_title}</h2>
+      <div class="steps">
+        <div class="step"><h4>{t.strom_step1_title}</h4><p>{t.strom_step1_text}</p></div>
+        <div class="step"><h4>{t.strom_step2_title}</h4><p>{t.strom_step2_text}</p></div>
+        <div class="step"><h4>{t.strom_step3_title}</h4><p>{t.strom_step3_text}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <CalculatorEmbed
+    lang={lang}
+    title={stromCalculator.titleDe}
+    description={stromCalculator.descriptionDe}
+    providerName={stromCalculator.providerName}
+    htmlCode={stromCalculator.htmlCode}
+    disclaimer={stromCalculator.disclaimerDe}
+  />
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.strom_info_title}</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">📋</div><h3>{t.strom_info1_title}</h3><p>{t.strom_info1_text}</p></div>
+        <div class="card"><div class="card-icon">⏱️</div><h3>{t.strom_info2_title}</h3><p>{t.strom_info2_text}</p></div>
+        <div class="card"><div class="card-icon">📝</div><h3>{t.strom_info3_title}</h3><p>{t.strom_info3_text}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <FaqList title={t.strom_faq_title} items={faqs} />
+    </div>
+  </section>
+
+  <TrustBar lang={lang} variant="check24" />
+  <Footer lang={lang} />
+</BaseLayout>

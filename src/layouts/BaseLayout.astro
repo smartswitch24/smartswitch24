@@ -1,0 +1,134 @@
+---
+import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'de' | 'ar';
+  canonical: string;
+  alternateUrl?: string;
+  noindex?: boolean;
+  structuredData?: object;
+}
+
+const { title, description, lang, canonical, alternateUrl, noindex = false, structuredData } = Astro.props;
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+const alternateLang = lang === 'de' ? 'ar' : 'de';
+const siteUrl = 'https://smartswitch24.de';
+const GTM_ID = 'GTM-W9K5H8DS';
+---
+<!DOCTYPE html>
+<html lang={lang} dir={dir}>
+<head>
+  <script is:inline define:vars={{ lang, dir }}>
+    (function(){
+      document.documentElement.lang = lang;
+      document.documentElement.dir = dir;
+    })();
+  </script>
+  <!-- Consent Mode v2 — must run before GTM -->
+  <script is:inline>
+    (function(){
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('consent', 'default', {
+        analytics_storage:  'denied',
+        ad_storage:         'denied',
+        ad_user_data:       'denied',
+        ad_personalization: 'denied',
+        wait_for_update:    500
+      });
+      var c;
+      try { c = localStorage.getItem('cookie_consent'); } catch(e){}
+      if (c === 'accepted') {
+        gtag('consent', 'update', {
+          analytics_storage:  'granted',
+          ad_storage:         'granted',
+          ad_user_data:       'granted',
+          ad_personalization: 'granted'
+        });
+      }
+    })();
+  </script>
+  <!-- Google Tag Manager -->
+  <script is:inline define:vars={{ GTM_ID }}>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer',GTM_ID);</script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonical} />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang={lang} href={canonical} />
+  {alternateUrl && <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />}
+  <link rel="alternate" hreflang="x-default" href={`${siteUrl}/de/`} />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content="SmartSwitch24" />
+  <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'ar'} />
+  <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  {structuredData && (
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  )}
+
+  <slot name="head" />
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript is:inline><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <main>
+    <slot />
+  </main>
+
+  <CookieConsent lang={lang} />
+
+  <script is:inline>
+    (function(){
+      var toggle = document.getElementById('navToggle');
+      var nav = document.getElementById('mainNav');
+      if(toggle && nav){
+        toggle.addEventListener('click', function(){
+          var open = nav.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
+      var cookieBtn = document.getElementById('cookie-settings-btn');
+      var banner = document.getElementById('cookie-banner');
+      if(cookieBtn && banner){
+        cookieBtn.addEventListener('click', function(){ banner.style.display = 'block'; });
+      }
+    })();
+  </script>
+</body>
+</html>

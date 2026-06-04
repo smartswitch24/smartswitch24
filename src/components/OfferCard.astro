@@ -1,0 +1,28 @@
+---
+import type { GeneralOffer } from '../config/affiliate-widgets';
+
+interface Props {
+  offer: GeneralOffer;
+  lang: 'de' | 'ar';
+}
+const { offer, lang } = Astro.props;
+const desc = lang === 'de' ? offer.descriptionDe : offer.descriptionAr;
+const cta = lang === 'de' ? offer.ctaDe : offer.ctaAr;
+const updatedLabel = lang === 'de' ? 'Zuletzt aktualisiert' : 'آخر تحديث';
+---
+<div class="offer-card">
+  {offer.providerLogo && (
+    <img src={offer.providerLogo} alt={offer.providerName} width="120" height="40" style="object-fit:contain;max-height:40px;" />
+  )}
+  <div class="offer-card__provider">{offer.providerName}</div>
+  <div class="offer-card__price">{offer.price}</div>
+  <p class="offer-card__desc">{desc}</p>
+  {offer.affiliateUrl ? (
+    <a href={offer.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">{cta}</a>
+  ) : (
+    <span class="btn btn-primary" style="opacity:.5;cursor:default;">{cta}</span>
+  )}
+  {offer.lastUpdated && (
+    <p class="offer-card__updated">{updatedLabel}: {offer.lastUpdated}</p>
+  )}
+</div>

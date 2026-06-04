@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import AffiliateNotice from '../../components/AffiliateNotice.astro';
+import TrustBar from '../../components/TrustBar.astro';
+import FaqList from '../../components/FaqList.astro';
+import { ar as t } from '../../i18n/ar';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/`;
+const alternateUrl = `${siteUrl}/de/`;
+
+const cards = [
+  { icon: '⚡', title: t.card_electricity_title, text: t.card_electricity_text, btn: t.card_electricity_btn, href: '/ar/stromvergleich/' },
+  { icon: '🔥', title: t.card_gas_title, text: t.card_gas_text, btn: t.card_gas_btn, href: '/ar/gasvergleich/' },
+  { icon: '📱', title: t.card_handy_title, text: t.card_handy_text, btn: t.card_handy_btn, href: '/ar/handyvertraege/' },
+  { icon: '🤳', title: t.card_smartphones_title, text: t.card_smartphones_text, btn: t.card_smartphones_btn, href: '/ar/smartphones/' },
+  { icon: '💻', title: t.card_tablets_title, text: t.card_tablets_text, btn: t.card_tablets_btn, href: '/ar/tablets/' },
+  { icon: '⌚', title: t.card_smartwatches_title, text: t.card_smartwatches_text, btn: t.card_smartwatches_btn, href: '/ar/smartwatches/' },
+  { icon: '✈️', title: t.card_pauschalreisen_title, text: t.card_pauschalreisen_text, btn: t.card_pauschalreisen_btn, href: '/ar/pauschalreisen/' },
+  { icon: '🏦', title: t.card_finanzen_title, text: t.card_finanzen_text, btn: t.card_finanzen_btn, href: '/ar/finanzen/' },
+];
+
+const faqs = [
+  { q: t.home_faq1_q, a: t.home_faq1_a },
+  { q: t.home_faq2_q, a: t.home_faq2_a },
+  { q: t.home_faq3_q, a: t.home_faq3_a },
+];
+---
+<BaseLayout title={t.home_meta_title} description={t.home_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="home" />
+  <AffiliateNotice lang={lang} variant="short" />
+  <section class="hero">
+    <div class="container">
+      <h1>{t.hero_title}</h1>
+      <p>{t.hero_subtitle}</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <a href="/ar/stromvergleich/" class="btn btn-primary btn-lg">{t.hero_btn_electricity}</a>
+        <a href="/ar/gasvergleich/" class="btn btn-outline btn-lg">{t.hero_btn_gas}</a>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.compare_title}</h2>
+      <p class="section-subtitle">{t.compare_subtitle}</p>
+      <div class="product-cards">
+        {cards.map(card => (
+          <a href={card.href} class="product-card">
+            <div class="card-icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+            <span class="btn btn-primary">{card.btn}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.howto_title}</h2>
+      <p class="section-subtitle">{t.howto_subtitle}</p>
+      <div class="steps">
+        <div class="step"><h4>{t.step1_title}</h4><p>{t.step1_text}</p></div>
+        <div class="step"><h4>{t.step2_title}</h4><p>{t.step2_text}</p></div>
+        <div class="step"><h4>{t.step3_title}</h4><p>{t.step3_text}</p></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.why_title}</h2>
+      <p class="section-subtitle">{t.why_subtitle}</p>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">🔍</div><h3>{t.why_transparent_title}</h3><p>{t.why_transparent_text}</p></div>
+        <div class="card"><div class="card-icon">📱</div><h3>{t.why_easy_title}</h3><p>{t.why_easy_text}</p></div>
+        <div class="card"><div class="card-icon">🌍</div><h3>{t.why_bilingual_title}</h3><p>{t.why_bilingual_text}</p></div>
+        <div class="card"><div class="card-icon">🔒</div><h3>{t.why_privacy_title}</h3><p>{t.why_privacy_text}</p></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <FaqList title={t.faq_title} items={faqs} />
+    </div>
+  </section>
+  <section class="cta-section">
+    <div class="container">
+      <h2>{t.cta_title}</h2>
+      <p>{t.cta_subtitle}</p>
+      <a href="/ar/stromvergleich/" class="btn btn-primary btn-lg">{t.cta_btn}</a>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

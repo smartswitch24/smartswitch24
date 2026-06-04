@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { ar as t } from '../../../i18n/ar';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/impressum/`;
+const alternateUrl = `${siteUrl}/de/impressum/`;
+---
+<BaseLayout title={t.impressum_meta_title} description="بيانات الناشر – SmartSwitch24" lang={lang} canonical={canonical} alternateUrl={alternateUrl} noindex={true}>
+  <Header lang={lang} />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.impressum_page_title}</h1>
+      <p>{t.impressum_page_subtitle}</p>
+    </div>
+  </div>
+  <div class="prose">
+    <h2>بيانات وفق المادة § 5 TMG</h2>
+    <p><strong>المالك:</strong><br />Nassereddin Bahra</p>
+    <p><strong>العنوان:</strong><br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen<br />ألمانيا</p>
+    <p><strong>التواصل:</strong><br />الهاتف: +4915119669661<br />البريد الإلكتروني: kontakt@smartswitch24.de</p>
+
+    <h2>المسؤول عن المحتوى وفق § 18 Abs. 2 MStV</h2>
+    <p>Nassereddin Bahra<br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen</p>
+
+    <hr />
+
+    <h2>إشعار بشأن شراكة الإحالة</h2>
+    <h3>برنامج شركاء CHECK24.net</h3>
+    <p>يشارك هذا الموقع في برنامج شركاء <strong>CHECK24.net</strong>. CHECK24 هي بوابة مقارنة مستقلة للتأمينات والتمويل والطاقة والسفر ومقرها ألمانيا.</p>
+    <p>في صفحتي <a href="/ar/stromvergleich/">مقارنة الكهرباء</a> و<a href="/ar/gasvergleich/">مقارنة الغاز</a> تُدمج أدوات مقارنة تُقدمها CHECK24.</p>
+    <p><strong>إشعار المكافأة:</strong> إذا أبرم المستخدمون عقداً من خلال أدوات المقارنة، يحق لمشغل هذا الموقع الحصول على عمولة توسط من CHECK24. لا تترتب على المستخدم أي تكاليف إضافية.</p>
+    <p>مزيد من المعلومات: <a href="https://www.check24.net" target="_blank" rel="noopener noreferrer">www.check24.net</a></p>
+
+    <hr />
+
+    <h2>إخلاء المسؤولية</h2>
+    <h3>المسؤولية عن المحتوى</h3>
+    <p>تم إعداد محتوى هذا الموقع بأقصى قدر من العناية. لا يُعدّ هذا الموقع <strong>استشارة مالية أو قانونية أو ضريبية</strong>.</p>
+    <h3>المسؤولية عن الروابط</h3>
+    <p>يحتوي موقعنا على روابط لمواقع خارجية. لا نتحمل أي مسؤولية عن محتواها.</p>
+    <h3>حقوق النشر</h3>
+    <p>المحتوى الذي أنشأه مشغل الموقع يخضع لقانون حقوق النشر الألماني.</p>
+
+    <hr />
+
+    <h2>تسوية النزاعات</h2>
+    <p>توفر المفوضية الأوروبية منصة لتسوية النزاعات: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></p>
+    <p>لسنا ملزمين ولا راغبين في المشاركة في إجراءات تسوية النزاعات أمام هيئة تحكيم المستهلكين.</p>
+  </div>
+  <Footer lang={lang} />
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import AffiliateNotice from '../../../components/AffiliateNotice.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import { ar as t } from '../../../i18n/ar';
+import { pauschalreisenWidget } from '../../../config/affiliate-widgets';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/last-minute/`;
+const alternateUrl = `${siteUrl}/de/last-minute/`;
+const faqs = [
+  { q: t.last_minute_faq1_q, a: t.last_minute_faq1_a },
+  { q: t.last_minute_faq2_q, a: t.last_minute_faq2_a },
+];
+---
+<BaseLayout title={t.last_minute_meta_title} description={t.last_minute_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="pauschalreisen" />
+  <AffiliateNotice lang={lang} variant="short" />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.last_minute_page_title}</h1>
+      <p>{t.last_minute_page_subtitle}</p>
+    </div>
+  </div>
+  <CalculatorEmbed
+    lang={lang}
+    title={pauschalreisenWidget.titleAr}
+    description={pauschalreisenWidget.descriptionAr}
+    providerName={pauschalreisenWidget.providerName}
+    htmlCode={pauschalreisenWidget.htmlCode}
+    disclaimer={pauschalreisenWidget.disclaimerAr}
+  />
+  <section>
+    <div class="container">
+      <FaqList title={t.last_minute_faq_title} items={faqs} />
+      <p style="margin-top:24px;"><a href="/ar/pauschalreisen/" style="color:var(--color-primary);">← للعودة إلى رحلات السفر</a></p>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import { de as t } from '../../../i18n/de';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/kontakt/`;
+const alternateUrl = `${siteUrl}/ar/kontakt/`;
+---
+<BaseLayout title={t.kontakt_meta_title} description={t.kontakt_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="kontakt" />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.kontakt_page_title}</h1>
+      <p>{t.kontakt_page_subtitle}</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="contact-box">
+        <dl>
+          <dt>{t.kontakt_email_label}</dt>
+          <dd><a href={`mailto:${t.kontakt_email}`}>{t.kontakt_email}</a></dd>
+          <dt>{t.kontakt_phone_label}</dt>
+          <dd><a href={`tel:${t.kontakt_phone}`}>{t.kontakt_phone}</a></dd>
+          <dt>{t.kontakt_address_label}</dt>
+          <dd>{t.kontakt_address}</dd>
+        </dl>
+      </div>
+      <p style="color:var(--color-text-light);text-align:center;margin-top:16px;font-size:.9rem;">{t.kontakt_note}</p>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

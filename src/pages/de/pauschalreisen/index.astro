@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import AffiliateNotice from '../../../components/AffiliateNotice.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import { de as t } from '../../../i18n/de';
+import { pauschalreisenWidget, travelOffers } from '../../../config/affiliate-widgets';
+import TravelOfferCard from '../../../components/TravelOfferCard.astro';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/pauschalreisen/`;
+const alternateUrl = `${siteUrl}/ar/pauschalreisen/`;
+
+const faqs = [
+  { q: t.pauschalreisen_faq1_q, a: t.pauschalreisen_faq1_a },
+  { q: t.pauschalreisen_faq2_q, a: t.pauschalreisen_faq2_a },
+  { q: t.pauschalreisen_faq3_q, a: t.pauschalreisen_faq3_a },
+];
+---
+<BaseLayout title={t.pauschalreisen_meta_title} description={t.pauschalreisen_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="pauschalreisen" />
+  <AffiliateNotice lang={lang} variant="short" />
+
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.pauschalreisen_page_title}</h1>
+      <p>{t.pauschalreisen_page_subtitle}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.pauschalreisen_categories_title}</h2>
+      <div class="sub-cards">
+        <a href="/de/last-minute/" class="sub-card">
+          <h3>⚡ {t.pauschalreisen_last_minute_title}</h3>
+          <p>{t.pauschalreisen_last_minute_text}</p>
+        </a>
+        <a href="/de/familienurlaub/" class="sub-card">
+          <h3>👨‍👩‍👧‍👦 {t.pauschalreisen_familienurlaub_title}</h3>
+          <p>{t.pauschalreisen_familienurlaub_text}</p>
+        </a>
+        <a href="/de/all-inclusive/" class="sub-card">
+          <h3>🌴 {t.pauschalreisen_all_inclusive_title}</h3>
+          <p>{t.pauschalreisen_all_inclusive_text}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CalculatorEmbed
+    lang={lang}
+    title={pauschalreisenWidget.titleDe}
+    description={pauschalreisenWidget.descriptionDe}
+    providerName={pauschalreisenWidget.providerName}
+    htmlCode={pauschalreisenWidget.htmlCode}
+    disclaimer={pauschalreisenWidget.disclaimerDe}
+  />
+
+  {travelOffers.length > 0 && (
+    <section>
+      <div class="container">
+        <h2 class="section-title">{t.pauschalreisen_current_offers_title}</h2>
+        <div class="card-grid">
+          {travelOffers.map(offer => <TravelOfferCard offer={offer} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="container">
+      <FaqList title={t.pauschalreisen_faq_title} items={faqs} />
+    </div>
+  </section>
+
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

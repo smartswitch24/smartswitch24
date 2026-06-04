@@ -1,0 +1,9 @@
+---
+interface Props { lang: 'de' | 'ar'; }
+const { lang } = Astro.props;
+const text = {
+  de: 'Die Inhalte auf SmartSwitch24 dienen ausschließlich allgemeinen Informationszwecken und stellen keine Finanzberatung dar.',
+  ar: 'المحتوى على SmartSwitch24 هو لأغراض معلوماتية عامة فقط ولا يُعتبر استشارة مالية.',
+};
+---
+<div class="finance-disclaimer container">{text[lang]}</div>

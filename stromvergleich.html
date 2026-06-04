@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <script>
+    (function(){
+      var s=localStorage.getItem('ss24_lang');
+      var l=s||(((navigator.language||'').toLowerCase().startsWith('ar'))?'ar':'de');
+      if(l==='ar'){document.documentElement.dir='rtl';document.documentElement.lang='ar';}
+    }());
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W9K5H8DS');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stromvergleich – Günstige Stromtarife vergleichen | SmartSwitch24</title>
+  <meta name="description" content="Stromtarife vergleichen und online wechseln. Kostenloser Stromrechner für Deutschland – jetzt Angebote prüfen." />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="i18n.js" defer></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9K5H8DS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">Smart<span>Switch</span>24</a>
+      <button class="nav-toggle" id="navToggle" data-i18n-aria="nav_aria" aria-label="Navigation öffnen">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="mainNav">
+        <a href="index.html" data-i18n="nav_home">Startseite</a>
+        <a href="stromvergleich.html" class="active" data-i18n="nav_electricity">Stromvergleich</a>
+        <a href="gasvergleich.html" data-i18n="nav_gas">Gasvergleich</a>
+        <div class="lang-switcher">
+          <button class="lang-btn" data-lang="de">DE</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Affiliate Notice -->
+  <div class="affiliate-notice">
+    <div class="container" data-i18n="affiliate_full">
+      <strong>Werbung / Affiliate-Hinweis:</strong> Diese Seite enthält Partnerlinks zu CHECK24. Wenn Sie über unseren Vergleichsrechner einen Vertrag abschließen, erhalten wir ggf. eine Vergütung. Für Sie entstehen keine Mehrkosten.
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 data-i18n="strom_page_title">⚡ Stromvergleich</h1>
+      <p data-i18n="strom_page_subtitle">Aktuelle Stromtarife in Ihrer Region vergleichen und günstig wechseln.</p>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <section>
+    <div class="container">
+      <h2 class="section-title" data-i18n="strom_steps_title">In drei Schritten zum neuen Stromtarif</h2>
+      <div class="steps">
+        <div class="step">
+          <h4 data-i18n="strom_step1_title">PLZ &amp; Verbrauch eingeben</h4>
+          <p data-i18n="strom_step1_text">Geben Sie Ihre Postleitzahl und Ihren geschätzten Jahresverbrauch (kWh) ein.</p>
+        </div>
+        <div class="step">
+          <h4 data-i18n="strom_step2_title">Tarife vergleichen</h4>
+          <p data-i18n="strom_step2_text">Verfügbare Angebote werden nach Preis und Konditionen übersichtlich angezeigt.</p>
+        </div>
+        <div class="step">
+          <h4 data-i18n="strom_step3_title">Online wechseln</h4>
+          <p data-i18n="strom_step3_text">Wunschantrag direkt online abschließen – Kündigung beim alten Anbieter wird i.d.R. übernommen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Widget -->
+  <div class="widget-section" id="begin">
+    <div class="widget-wrapper">
+      <h2 data-i18n="strom_widget_title">Jetzt Stromtarife vergleichen</h2>
+      <p class="sub" data-i18n="strom_widget_sub">Kostenloser Vergleich – keine Anmeldung erforderlich. Hinweis: Wir können keine bestimmten Einsparungen garantieren. Vergleichsergebnisse sind tarif- und zeitabhängig.</p>
+
+      <div style="width: 100%" id="c24pp-power-iframe" data-scrollto="begin"></div>
+      <script src="https://files.check24.net/widgets/auto/864696/c24pp-power-iframe/power-iframe.js"></script>
+    </div>
+  </div>
+
+  <!-- Info section -->
+  <section>
+    <div class="container">
+      <h2 class="section-title" data-i18n="strom_info_title">Wissenswertes zum Stromwechsel</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">📋</div>
+          <h3 data-i18n="strom_info1_title">Was brauche ich zum Wechseln?</h3>
+          <p data-i18n="strom_info1_text">Ihre aktuelle Stromrechnung (für Zählernummer und Jahresverbrauch) sowie Ihre Bankverbindung für den SEPA-Lastschrifteinzug des neuen Anbieters.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⏱️</div>
+          <h3 data-i18n="strom_info2_title">Wie lange dauert der Wechsel?</h3>
+          <p data-i18n="strom_info2_text">In der Regel dauert ein Anbieterwechsel wenige Wochen. Eine Versorgungslücke entsteht dabei nicht – Sie werden lückenlos versorgt.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📝</div>
+          <h3 data-i18n="strom_info3_title">Was steht im Tarif?</h3>
+          <p data-i18n="strom_info3_text">Prüfen Sie Laufzeit, Preisgarantie und Kündigungsfristen sorgfältig. Tarife ohne Mindestlaufzeit bieten mehr Flexibilität.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title" data-i18n="strom_faq_title">Häufige Fragen zum Stromvergleich</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary data-i18n="strom_faq1_q">Lohnt sich ein Stromanbieterwechsel?</summary>
+          <p data-i18n="strom_faq1_a">Das hängt von Ihrem aktuellen Tarif, Ihrem Verbrauch und den verfügbaren Angeboten ab. Der Vergleich zeigt Ihnen die aktuellen Tarife – ob ein Wechsel für Sie sinnvoll ist, können Sie anhand der angezeigten Konditionen selbst einschätzen. Wir geben keine Einspargarantien.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="strom_faq2_q">Kann ich jederzeit kündigen und wechseln?</summary>
+          <p data-i18n="strom_faq2_a">Das hängt von Ihrem aktuellen Vertrag ab. Prüfen Sie Ihre Vertragslaufzeit und Kündigungsfristen. Viele Neuverträge bieten jedoch auch innerhalb der Laufzeit ein Sonderkündigungsrecht bei Preiserhöhungen.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="strom_faq3_q">Gibt es Tarife ohne lange Laufzeit?</summary>
+          <p data-i18n="strom_faq3_a">Ja. Es gibt sowohl Jahresverträge als auch Tarife ohne Mindestlaufzeit (Monatstarife). Diese sind im Vergleichsrechner entsprechend gefiltert.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="strom_faq4_q">Was ist Ökostrom?</summary>
+          <p data-i18n="strom_faq4_a">Als Ökostrom gelten Tarife, bei denen der Strom aus erneuerbaren Energiequellen (Wind, Sonne, Wasser) stammt oder zertifiziert kompensiert wird. Entsprechende Tarife können im Rechner gefiltert werden.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="container" data-i18n="trust_check24">
+      <strong>Hinweis:</strong> SmartSwitch24 gibt keine Finanzberatung und garantiert keine Einsparungen. Alle Angaben ohne Gewähr. Der Vergleich wird durch CHECK24 bereitgestellt.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-logo">Smart<span>Switch</span>24</div>
+        <p style="margin-top:10px;font-size:.85rem;max-width:240px;" data-i18n="footer_tagline">Strom &amp; Gas vergleichen – einfach, transparent, kostenlos.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_comparisons">Vergleiche</h4>
+        <a href="stromvergleich.html" data-i18n="footer_electricity">Stromvergleich</a>
+        <a href="gasvergleich.html" data-i18n="footer_gas">Gasvergleich</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal">Rechtliches</h4>
+        <a href="impressum.html" data-i18n="footer_impressum">Impressum</a>
+        <a href="datenschutz.html" data-i18n="footer_privacy">Datenschutzerklärung</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footer_copyright">&copy; 2025 SmartSwitch24 – Alle Rechte vorbehalten</span>
+      <span>
+        <a href="impressum.html" style="color:rgba(255,255,255,.55);" data-i18n="footer_impressum">Impressum</a> &nbsp;·&nbsp;
+        <a href="datenschutz.html" style="color:rgba(255,255,255,.55);" data-i18n="footer_privacy_short">Datenschutz</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('mainNav');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+
+</body>
+</html>

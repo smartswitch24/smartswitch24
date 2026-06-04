@@ -1,0 +1,21 @@
+---
+interface Props {
+  lang: 'de' | 'ar';
+  variant?: 'general' | 'check24';
+}
+const { lang, variant = 'general' } = Astro.props;
+
+const text = {
+  de: {
+    general: '<strong>Hinweis:</strong> SmartSwitch24 gibt keine Finanz- oder Vertragsberatung und garantiert keine Einsparungen. Alle Angaben ohne Gewähr. Vergleichsergebnisse sind tarif- und zeitabhängig.',
+    check24: '<strong>Hinweis:</strong> SmartSwitch24 gibt keine Finanzberatung und garantiert keine Einsparungen. Alle Angaben ohne Gewähr. Der Vergleich wird durch CHECK24 bereitgestellt.',
+  },
+  ar: {
+    general: '<strong>تنبيه:</strong> لا تقدم SmartSwitch24 استشارات مالية أو تعاقدية ولا تضمن توفير أي مبالغ. جميع المعلومات بدون ضمان. نتائج المقارنة تعتمد على التعريفة والوقت.',
+    check24: '<strong>تنبيه:</strong> لا تقدم SmartSwitch24 استشارات مالية ولا تضمن توفير أي مبالغ. جميع المعلومات بدون ضمان. يُقدّم المقارنة موقع CHECK24.',
+  },
+};
+---
+<div class="trust-bar">
+  <div class="container" set:html={text[lang][variant]} />
+</div>

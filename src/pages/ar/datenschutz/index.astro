@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { ar as t } from '../../../i18n/ar';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/datenschutz/`;
+const alternateUrl = `${siteUrl}/de/datenschutz/`;
+---
+<BaseLayout title={t.datenschutz_meta_title} description="سياسة الخصوصية – SmartSwitch24" lang={lang} canonical={canonical} alternateUrl={alternateUrl} noindex={true}>
+  <Header lang={lang} />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.datenschutz_page_title}</h1>
+      <p>{t.datenschutz_page_subtitle}</p>
+    </div>
+  </div>
+  <div class="prose">
+    <h2>1. الجهة المسؤولة</h2>
+    <p>Nassereddin Bahra<br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen<br />البريد الإلكتروني: kontakt@smartswitch24.de</p>
+
+    <h2>2. عموميات معالجة البيانات</h2>
+    <p>نعالج البيانات الشخصية لمستخدمينا بشكل مبدئي فقط بالقدر الضروري لتوفير موقع ويب وظيفي.</p>
+
+    <h2>3. الأسس القانونية للمعالجة</h2>
+    <p>الأسس القانونية هي Art. 6 Abs. 1 lit. a, b و f DSGVO حسب عملية المعالجة.</p>
+
+    <h2>4. جمع البيانات على هذا الموقع</h2>
+    <h3>ملفات سجل الخادم</h3>
+    <p>يجمع مزود الاستضافة تلقائياً معلومات في ملفات سجل الخادم: نوع المتصفح, نظام التشغيل, عنوان URL المُحيل, عنوان IP, الوقت. لا يتم دمج هذه البيانات مع مصادر أخرى.</p>
+    <h3>ملفات تعريف الارتباط</h3>
+    <p>لا يستخدم هذا الموقع ملفات تعريف الارتباط الخاصة بتتبع المستخدمين. عند تحميل أدوات CHECK24 قد يقوم CHECK24 بتعيين ملفات تعريف الارتباط. راجع: <a href="https://www.check24.de/datenschutz/" target="_blank" rel="noopener noreferrer">check24.de/datenschutz</a>.</p>
+
+    <h2>5. المحتوى المضمّن / خدمات الطرف الثالث</h2>
+    <h3>أداة مقارنة CHECK24</h3>
+    <p>في صفحتي مقارنة الكهرباء والغاز تُدمج أدوات CHECK24. عند تحميلها قد تنتقل بيانات كعنوان IP إلى CHECK24.<br />المزود: CHECK24 Vergleichsportal GmbH, 80636 München<br /><a href="https://www.check24.de/datenschutz/" target="_blank" rel="noopener noreferrer">سياسة الخصوصية CHECK24</a></p>
+
+    <h2>6. حقوقك كشخص متأثر</h2>
+    <ul>
+      <li><strong>الحق في الوصول إلى المعلومات</strong> (Art. 15 DSGVO)</li>
+      <li><strong>الحق في التصحيح</strong> (Art. 16 DSGVO)</li>
+      <li><strong>الحق في الحذف</strong> (Art. 17 DSGVO)</li>
+      <li><strong>الحق في تقييد المعالجة</strong> (Art. 18 DSGVO)</li>
+      <li><strong>الحق في نقل البيانات</strong> (Art. 20 DSGVO)</li>
+      <li><strong>الحق في الاعتراض</strong> (Art. 21 DSGVO)</li>
+    </ul>
+    <p>للتواصل: kontakt@smartswitch24.de</p>
+
+    <h2>7. أمان البيانات</h2>
+    <p>يستخدم هذا الموقع تشفير SSL/TLS.</p>
+
+    <h2>8. تحديث هذه السياسة</h2>
+    <p>اعتباراً من: مايو 2025</p>
+  </div>
+  <Footer lang={lang} />
+</BaseLayout>

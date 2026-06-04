@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import { ar as t } from '../../../i18n/ar';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/blog/`;
+const alternateUrl = `${siteUrl}/de/blog/`;
+
+const allPosts = await getCollection('blog', ({ data }) =>
+  data.lang === 'ar' && !data.draft,
+);
+const posts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const catLabel: Record<string, string> = {
+  strom: 'الكهرباء والطاقة', gas: 'الغاز', handy: 'الجوال والعقود',
+  smartphones: 'الهواتف الذكية', tablets: 'الأجهزة اللوحية', smartwatches: 'الساعات الذكية',
+  reisen: 'السفر والسياحة', finanzen: 'التمويل', ratgeber: 'دليل المستهلك',
+};
+
+const catColor: Record<string, string> = {
+  strom: '#1a3a6b', gas: '#0d6e6e', handy: '#6b3a1a',
+  reisen: '#1a6b3a', finanzen: '#3a1a6b', ratgeber: '#555',
+};
+---
+<BaseLayout title={t.blog_meta_title} description={t.blog_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="blog" />
+
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.blog_page_title}</h1>
+      <p>{t.blog_page_subtitle}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      {posts.length === 0 ? (
+        <p style="color:var(--color-text-light);">{t.blog_coming_soon}</p>
+      ) : (
+        <div class="blog-grid" dir="rtl">
+          {posts.map(post => {
+            const slug = post.slug.split('/').pop();
+            const cat = catLabel[post.data.category] ?? post.data.category;
+            const color = catColor[post.data.category] ?? 'var(--color-primary)';
+            const date = post.data.pubDate.toLocaleDateString('ar-SA', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            });
+            return (
+              <a href={`/ar/blog/${slug}/`} class="blog-card">
+                <div class="blog-card__cat" style={`background:${color};`}>{cat}</div>
+                <div class="blog-card__body">
+                  <h2 class="blog-card__title">{post.data.title}</h2>
+                  <p class="blog-card__desc">{post.data.description}</p>
+                </div>
+                <div class="blog-card__footer">
+                  <time>{date}</time>
+                  <span class="blog-card__read">← اقرأ المزيد</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    margin-top: 8px;
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+    font-family: 'Cairo', 'Segoe UI', Arial, sans-serif;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 8px 32px rgba(26,46,74,0.14);
+    transform: translateY(-3px);
+    text-decoration: none;
+  }
+
+  .blog-card__cat {
+    padding: 6px 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-align: right;
+  }
+
+  .blog-card__body {
+    padding: 20px 20px 12px;
+    flex: 1;
+    text-align: right;
+  }
+
+  .blog-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .blog-card__desc {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card__footer {
+    padding: 12px 20px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    flex-direction: row-reverse;
+  }
+
+  .blog-card__read {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { de as t } from '../../../i18n/de';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/impressum/`;
+const alternateUrl = `${siteUrl}/ar/impressum/`;
+---
+<BaseLayout title={t.impressum_meta_title} description="Impressum – SmartSwitch24" lang={lang} canonical={canonical} alternateUrl={alternateUrl} noindex={true}>
+  <Header lang={lang} />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.impressum_page_title}</h1>
+      <p>{t.impressum_page_subtitle}</p>
+    </div>
+  </div>
+  <div class="prose">
+    <h2>Angaben gemäß § 5 TMG</h2>
+    <p><strong>Inhaber:</strong><br />Nassereddin Bahra</p>
+    <p><strong>Adresse:</strong><br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen<br />Deutschland</p>
+    <p><strong>Kontakt:</strong><br />Telefon: +4915119669661<br />E-Mail: kontakt@smartswitch24.de</p>
+
+    <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>Nassereddin Bahra<br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen</p>
+
+    <hr />
+
+    <h2>Hinweis auf Affiliate-Partnerschaft</h2>
+    <h3>CHECK24.net Partnerprogramm</h3>
+    <p>Diese Website nimmt am Partnerprogramm von <strong>CHECK24.net</strong> teil. CHECK24 ist ein unabhängiges Vergleichsportal für Versicherungen, Finanzen, Energie, Reisen und mehr mit Sitz in Deutschland.</p>
+    <p>Auf den Seiten <a href="/de/stromvergleich/">Stromvergleich</a> und <a href="/de/gasvergleich/">Gasvergleich</a> werden Vergleichsrechner eingebettet, die von CHECK24 bereitgestellt werden.</p>
+    <p><strong>Vergütungshinweis:</strong> Wenn Nutzer über diese Vergleichsrechner einen Vertrag abschließen oder eine Anfrage einreichen, kann der Betreiber eine Vermittlungsprovision von CHECK24 erhalten. Für den Nutzer entstehen keine Mehrkosten.</p>
+    <p>Weitere Informationen: <a href="https://www.check24.net" target="_blank" rel="noopener noreferrer">www.check24.net</a></p>
+
+    <hr />
+
+    <h2>Haftungsausschluss</h2>
+    <h3>Haftung für Inhalte</h3>
+    <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität übernehmen wir jedoch keine Gewähr. Diese Website stellt <strong>keine Finanzberatung, Rechtsberatung oder Steuerberatung</strong> dar.</p>
+    <h3>Haftung für Links</h3>
+    <p>Unser Angebot enthält Links zu externen Webseiten Dritter. Auf deren Inhalt haben wir keinen Einfluss und übernehmen dafür keine Haftung.</p>
+    <h3>Urheberrecht</h3>
+    <p>Die durch den Seitenbetreiber erstellten Inhalte unterliegen dem deutschen Urheberrecht. Die Vervielfältigung bedarf der schriftlichen Zustimmung des Autors.</p>
+
+    <hr />
+
+    <h2>Streitschlichtung</h2>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a></p>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
+  <Footer lang={lang} />
+</BaseLayout>

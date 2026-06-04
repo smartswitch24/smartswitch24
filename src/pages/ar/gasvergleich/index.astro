@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import AffiliateNotice from '../../../components/AffiliateNotice.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import { ar as t } from '../../../i18n/ar';
+import { gasCalculator } from '../../../config/affiliate-widgets';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/gasvergleich/`;
+const alternateUrl = `${siteUrl}/de/gasvergleich/`;
+const faqs = [
+  { q: t.gas_faq1_q, a: t.gas_faq1_a },
+  { q: t.gas_faq2_q, a: t.gas_faq2_a },
+  { q: t.gas_faq3_q, a: t.gas_faq3_a },
+  { q: t.gas_faq4_q, a: t.gas_faq4_a },
+];
+---
+<BaseLayout title={t.gas_meta_title} description={t.gas_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="gasvergleich" />
+  <AffiliateNotice lang={lang} variant="full" />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.gas_page_title}</h1>
+      <p>{t.gas_page_subtitle}</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.gas_steps_title}</h2>
+      <div class="steps">
+        <div class="step"><h4>{t.gas_step1_title}</h4><p>{t.gas_step1_text}</p></div>
+        <div class="step"><h4>{t.gas_step2_title}</h4><p>{t.gas_step2_text}</p></div>
+        <div class="step"><h4>{t.gas_step3_title}</h4><p>{t.gas_step3_text}</p></div>
+      </div>
+    </div>
+  </section>
+  <CalculatorEmbed
+    lang={lang}
+    title={gasCalculator.titleAr}
+    description={gasCalculator.descriptionAr}
+    providerName={gasCalculator.providerName}
+    htmlCode={gasCalculator.htmlCode}
+    disclaimer={gasCalculator.disclaimerAr}
+  />
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.gas_info_title}</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">📋</div><h3>{t.gas_info1_title}</h3><p>{t.gas_info1_text}</p></div>
+        <div class="card"><div class="card-icon">⏱️</div><h3>{t.gas_info2_title}</h3><p>{t.gas_info2_text}</p></div>
+        <div class="card"><div class="card-icon">📝</div><h3>{t.gas_info3_title}</h3><p>{t.gas_info3_text}</p></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <FaqList title={t.gas_faq_title} items={faqs} />
+    </div>
+  </section>
+  <TrustBar lang={lang} variant="check24" />
+  <Footer lang={lang} />
+</BaseLayout>

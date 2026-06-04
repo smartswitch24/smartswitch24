@@ -1,0 +1,286 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TrustBar from '../components/TrustBar.astro';
+import FaqList from '../components/FaqList.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  slug: string;
+}
+
+const { entry, slug } = Astro.props;
+const { data } = entry;
+const lang = data.lang;
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/${lang}/blog/${slug}/`;
+const alternateLang = lang === 'de' ? 'ar' : 'de';
+const alternateUrl = `${siteUrl}/${alternateLang}/blog/${slug}/`;
+
+// ── Structured data ────────────────────────────────────────────────────────
+const graph: object[] = [
+  {
+    '@type': 'Article',
+    '@id': `${canonical}#article`,
+    headline: data.title,
+    description: data.description,
+    author: { '@type': 'Organization', name: 'SmartSwitch24', url: siteUrl },
+    publisher: { '@type': 'Organization', name: 'SmartSwitch24', url: siteUrl },
+    datePublished: data.pubDate.toISOString().split('T')[0],
+    inLanguage: lang === 'de' ? 'de-DE' : 'ar',
+    url: canonical,
+    isPartOf: { '@type': 'Blog', '@id': `${siteUrl}/${lang}/blog/` },
+  },
+];
+
+if (data.faqs && data.faqs.length > 0) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${canonical}#faq`,
+    mainEntity: data.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  });
+}
+
+const structuredData = { '@context': 'https://schema.org', '@graph': graph };
+
+// ── Display helpers ────────────────────────────────────────────────────────
+const formattedDate = data.pubDate.toLocaleDateString(
+  lang === 'de' ? 'de-DE' : 'ar-SA',
+  { year: 'numeric', month: 'long', day: 'numeric' },
+);
+
+const catLabel: Record<string, Record<string, string>> = {
+  de: {
+    strom: 'Strom & Energie', gas: 'Gas', handy: 'Handy & Tarife',
+    smartphones: 'Smartphones', tablets: 'Tablets', smartwatches: 'Smartwatches',
+    reisen: 'Reisen', finanzen: 'Finanzen', ratgeber: 'Ratgeber',
+  },
+  ar: {
+    strom: 'الكهرباء والطاقة', gas: 'الغاز', handy: 'الجوال والعقود',
+    smartphones: 'الهواتف الذكية', tablets: 'الأجهزة اللوحية', smartwatches: 'الساعات الذكية',
+    reisen: 'السفر والسياحة', finanzen: 'التمويل', ratgeber: 'دليل المستهلك',
+  },
+};
+const categoryName = catLabel[lang]?.[data.category] ?? data.category;
+const backLabel = lang === 'de' ? '← Alle Artikel' : '→ جميع المقالات';
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  lang={lang}
+  canonical={canonical}
+  alternateUrl={alternateUrl}
+  structuredData={structuredData}
+>
+  <Header lang={lang} activePage="blog" />
+
+  <div class="page-header">
+    <div class="container">
+      <p style="margin-bottom:12px;">
+        <span class="badge" style="background:var(--color-accent);color:#fff;">{categoryName}</span>
+      </p>
+      <h1 style="font-size:clamp(1.5rem,3.5vw,2.2rem);line-height:1.25;">{data.title}</h1>
+      <p class="post-meta">
+        <time datetime={data.pubDate.toISOString().split('T')[0]}>{formattedDate}</time>
+        <span aria-hidden="true">·</span>
+        <span>{data.author}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="post-wrap">
+    <article class="prose post-body" dir={dir} lang={lang}>
+      <slot />
+    </article>
+
+    {data.faqs && data.faqs.length > 0 && (
+      <section class="post-faqs">
+        <FaqList
+          title={lang === 'de' ? 'Häufige Fragen' : 'أسئلة شائعة'}
+          items={data.faqs}
+        />
+      </section>
+    )}
+
+    {data.cta && (
+      <div class="post-cta" dir={dir}>
+        <p>{data.cta.text}</p>
+        <a href={data.cta.href} class="btn btn-primary btn-lg">{data.cta.label}</a>
+      </div>
+    )}
+
+    <footer class="post-footer" dir={dir}>
+      {data.tags.length > 0 && (
+        <div class="post-tags">
+          {data.tags.map(tag => (
+            <span class="badge" style="background:var(--color-surface);color:var(--color-primary);border:1px solid var(--color-border);">{tag}</span>
+          ))}
+        </div>
+      )}
+      <p style="margin-top:20px;">
+        <a href={`/${lang}/blog/`} style="color:var(--color-primary);font-weight:600;">{backLabel}</a>
+      </p>
+    </footer>
+  </div>
+
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>
+
+<style>
+  .post-meta {
+    margin-top: 10px;
+    color: rgba(255,255,255,0.70);
+    font-size: 0.9rem;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .post-wrap {
+    max-width: 780px;
+    margin-inline: auto;
+    padding: 48px 24px 64px;
+  }
+
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .post-body h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 2.2rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .post-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 1.6rem 0 0.5rem;
+  }
+
+  .post-body p { margin-bottom: 1.1rem; }
+
+  .post-body ul, .post-body ol {
+    padding-left: 1.4rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .post-body li { margin-bottom: 0.4rem; }
+
+  .post-body a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .post-body a:hover { color: var(--color-accent); }
+
+  .post-body strong { color: var(--color-text); font-weight: 700; }
+
+  .post-body blockquote {
+    border-left: 4px solid var(--color-accent);
+    margin: 1.5rem 0;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-surface);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--color-text-light);
+  }
+
+  .post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .post-body th {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .post-body td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-body tr:nth-child(even) td { background: var(--color-surface); }
+
+  .post-faqs {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--color-border);
+  }
+
+  .post-cta {
+    margin-top: 3rem;
+    background: linear-gradient(135deg, #1a3a6b 0%, #0d2248 100%);
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .post-cta p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .post-footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* RTL adjustments */
+  [dir="rtl"] .post-body {
+    font-family: 'Cairo', 'Segoe UI', Arial, sans-serif;
+  }
+
+  [dir="rtl"] .post-body ul,
+  [dir="rtl"] .post-body ol {
+    padding-left: 0;
+    padding-right: 1.4rem;
+  }
+
+  [dir="rtl"] .post-body blockquote {
+    border-left: none;
+    border-right: 4px solid var(--color-accent);
+    border-radius: 8px 0 0 8px;
+  }
+
+  [dir="rtl"] .post-body th {
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .post-wrap { padding: 32px 16px 48px; }
+    .post-cta { padding: 28px 20px; }
+  }
+</style>

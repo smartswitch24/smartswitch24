@@ -1,0 +1,21 @@
+---
+interface Props {
+  lang: 'de' | 'ar';
+  variant?: 'short' | 'full';
+}
+const { lang, variant = 'short' } = Astro.props;
+
+const text = {
+  de: {
+    short: '<strong>Werbung / Affiliate-Hinweis:</strong> Diese Seite enthält Partnerlinks. Bei Abschluss eines Vertrags über unsere Links erhalten wir ggf. eine Vergütung. Für Sie entstehen keine Mehrkosten.',
+    full: '<strong>Werbung / Affiliate-Hinweis:</strong> Diese Seite enthält Partnerlinks zu CHECK24. Wenn Sie über unseren Vergleichsrechner einen Vertrag abschließen, erhalten wir ggf. eine Vergütung. Für Sie entstehen keine Mehrkosten.',
+  },
+  ar: {
+    short: '<strong>إعلان / إشعار الإحالة:</strong> يحتوي هذا الموقع على روابط شركاء. إذا أبرمت عقداً عبر روابطنا، قد نتلقى عمولة. لا تتكبّد أي تكاليف إضافية.',
+    full: '<strong>إعلان / إشعار الإحالة:</strong> يحتوي هذا الموقع على روابط شركاء لـ CHECK24. إذا أبرمت عقداً من خلال أداة المقارنة لدينا، قد نتلقى عمولة. لا تتكبّد أي تكاليف إضافية.',
+  },
+};
+---
+<div class="affiliate-notice">
+  <div class="container" set:html={text[lang][variant]} />
+</div>

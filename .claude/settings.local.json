@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const fs = require\\('fs'\\); const src = fs.readFileSync\\('./node_modules/astro/dist/core/build/index.js', 'utf8'\\); console.log\\(src.includes\\('routes:resolved'\\) ? 'hook exists' : 'hook NOT found'\\)\")",
+      "Bash(npx astro *)"
+    ]
+  }
+}

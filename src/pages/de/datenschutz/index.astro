@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { de as t } from '../../../i18n/de';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/datenschutz/`;
+const alternateUrl = `${siteUrl}/ar/datenschutz/`;
+---
+<BaseLayout title={t.datenschutz_meta_title} description="Datenschutzerklärung – SmartSwitch24" lang={lang} canonical={canonical} alternateUrl={alternateUrl} noindex={true}>
+  <Header lang={lang} />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.datenschutz_page_title}</h1>
+      <p>{t.datenschutz_page_subtitle}</p>
+    </div>
+  </div>
+  <div class="prose">
+    <h2>1. Verantwortlicher</h2>
+    <p>Nassereddin Bahra<br />Friedrich-Ebert-Straße 15,<br />71067 Sindelfingen<br />E-Mail: kontakt@smartswitch24.de</p>
+
+    <h2>2. Allgemeines zur Datenverarbeitung</h2>
+    <p>Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website erforderlich ist.</p>
+
+    <h2>3. Rechtsgrundlagen der Verarbeitung</h2>
+    <p>Rechtsgrundlagen sind Art. 6 Abs. 1 lit. a, b und f DSGVO je nach Verarbeitungsvorgang.</p>
+
+    <h2>4. Datenerfassung auf dieser Website</h2>
+    <h3>Server-Logfiles</h3>
+    <p>Der Hosting-Anbieter erhebt automatisch Informationen in Server-Log-Dateien: Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse, Zeitstempel. Eine Zusammenführung mit anderen Datenquellen wird nicht vorgenommen.</p>
+    <h3>Cookies</h3>
+    <p>Diese Website verwendet keine eigenen Tracking-Cookies. Beim Laden der eingebetteten CHECK24-Vergleichsrechner können durch CHECK24 Cookies gesetzt werden. Bitte beachten Sie die Datenschutzhinweise von CHECK24: <a href="https://www.check24.de/datenschutz/" target="_blank" rel="noopener noreferrer">check24.de/datenschutz</a>.</p>
+
+    <h2>5. Eingebettete Inhalte / Drittdienste</h2>
+    <h3>CHECK24-Vergleichsrechner</h3>
+    <p>Auf den Seiten Stromvergleich und Gasvergleich werden Vergleichsrechner von CHECK24 eingebettet. Dabei können Daten wie Ihre IP-Adresse an CHECK24 übertragen werden.<br />Anbieter: CHECK24 Vergleichsportal GmbH, Erika-Mann-Str. 62–66, 80636 München<br />Datenschutzerklärung: <a href="https://www.check24.de/datenschutz/" target="_blank" rel="noopener noreferrer">https://www.check24.de/datenschutz/</a></p>
+
+    <h2>6. Ihre Rechte als betroffene Person</h2>
+    <ul>
+      <li><strong>Recht auf Auskunft</strong> (Art. 15 DSGVO)</li>
+      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
+      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO)</li>
+      <li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+    </ul>
+    <p>Zur Geltendmachung Ihrer Rechte wenden Sie sich an: kontakt@smartswitch24.de</p>
+
+    <h2>7. Datensicherheit</h2>
+    <p>Diese Website nutzt SSL-/TLS-Verschlüsselung.</p>
+
+    <h2>8. Aktualität</h2>
+    <p>Stand: Mai 2025</p>
+  </div>
+  <Footer lang={lang} />
+</BaseLayout>

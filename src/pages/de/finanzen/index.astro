@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import FinanceDisclaimer from '../../../components/FinanceDisclaimer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import FinanceOfferCard from '../../../components/FinanceOfferCard.astro';
+import { de as t } from '../../../i18n/de';
+import { finanzenWidget, financeOffers } from '../../../config/affiliate-widgets';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/finanzen/`;
+const alternateUrl = `${siteUrl}/ar/finanzen/`;
+const faqs = [
+  { q: t.finanzen_faq1_q, a: t.finanzen_faq1_a },
+  { q: t.finanzen_faq2_q, a: t.finanzen_faq2_a },
+];
+---
+<BaseLayout title={t.finanzen_meta_title} description={t.finanzen_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="finanzen" />
+  <FinanceDisclaimer lang={lang} />
+
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.finanzen_page_title}</h1>
+      <p>{t.finanzen_page_subtitle}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">{t.finanzen_categories_title}</h2>
+      <div class="sub-cards">
+        <a href="/de/girokonto/" class="sub-card">
+          <h3>🏦 {t.finanzen_girokonto_title}</h3>
+          <p>{t.finanzen_girokonto_text}</p>
+        </a>
+        <a href="/de/kreditkarten/" class="sub-card">
+          <h3>💳 {t.finanzen_kreditkarten_title}</h3>
+          <p>{t.finanzen_kreditkarten_text}</p>
+        </a>
+        <a href="/de/tagesgeld/" class="sub-card">
+          <h3>💰 {t.finanzen_tagesgeld_title}</h3>
+          <p>{t.finanzen_tagesgeld_text}</p>
+        </a>
+        <a href="/de/depot/" class="sub-card">
+          <h3>📈 {t.finanzen_depot_title}</h3>
+          <p>{t.finanzen_depot_text}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CalculatorEmbed
+    lang={lang}
+    title={finanzenWidget.titleDe}
+    description={finanzenWidget.descriptionDe}
+    providerName={finanzenWidget.providerName}
+    htmlCode={finanzenWidget.htmlCode}
+    disclaimer={finanzenWidget.disclaimerDe}
+  />
+
+  {financeOffers.length > 0 && (
+    <section>
+      <div class="container">
+        <h2 class="section-title">{t.finanzen_current_offers_title}</h2>
+        <div class="card-grid">
+          {financeOffers.map(offer => <FinanceOfferCard offer={offer} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="container">
+      <FaqList title={t.finanzen_faq_title} items={faqs} />
+    </div>
+  </section>
+
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

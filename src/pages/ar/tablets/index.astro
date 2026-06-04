@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import { ar as t } from '../../../i18n/ar';
+
+const lang = 'ar';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/ar/tablets/`;
+const alternateUrl = `${siteUrl}/de/tablets/`;
+---
+<BaseLayout title={t.tablets_meta_title} description={t.tablets_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="tablets" />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.tablets_page_title}</h1>
+      <p>{t.tablets_page_subtitle}</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="coming-soon-box">
+        <span class="badge badge-soon">{t.coming_soon_badge}</span>
+        <h2 style="margin-top:16px;">{t.coming_soon_title}</h2>
+        <p>{t.coming_soon_text}</p>
+        <a href="/ar/" class="btn btn-primary">{t.coming_soon_back}</a>
+      </div>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import { de as t } from '../../../i18n/de';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/ueber-uns/`;
+const alternateUrl = `${siteUrl}/ar/ueber-uns/`;
+---
+<BaseLayout title={t.ueber_uns_meta_title} description={t.ueber_uns_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="ueber-uns" />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.ueber_uns_page_title}</h1>
+      <p>{t.ueber_uns_page_subtitle}</p>
+    </div>
+  </div>
+  <section>
+    <div class="container" style="max-width:760px;">
+      <p style="margin-bottom:16px;">{t.ueber_uns_text1}</p>
+      <p style="margin-bottom:16px;">{t.ueber_uns_text2}</p>
+      <p style="margin-bottom:32px;">{t.ueber_uns_text3}</p>
+      <h2 class="section-title">{t.ueber_uns_mission_title}</h2>
+      <p>{t.ueber_uns_mission_text}</p>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>

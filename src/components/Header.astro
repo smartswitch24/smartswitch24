@@ -1,0 +1,60 @@
+---
+import { de } from '../i18n/de';
+import { ar } from '../i18n/ar';
+
+interface Props {
+  lang: 'de' | 'ar';
+  activePage?: string;
+}
+
+const { lang, activePage = '' } = Astro.props;
+const t = lang === 'de' ? de : ar;
+const base = `/${lang}`;
+const altBase = lang === 'de' ? '/ar' : '/de';
+
+const pages: Record<string, string> = {
+  stromvergleich: `${base}/stromvergleich/`,
+  gasvergleich: `${base}/gasvergleich/`,
+  handyvertraege: `${base}/handyvertraege/`,
+  smartphones: `${base}/smartphones/`,
+  tablets: `${base}/tablets/`,
+  smartwatches: `${base}/smartwatches/`,
+  pauschalreisen: `${base}/pauschalreisen/`,
+  finanzen: `${base}/finanzen/`,
+  blog: `${base}/blog/`,
+  'ueber-uns': `${base}/ueber-uns/`,
+  kontakt: `${base}/kontakt/`,
+};
+
+function active(page: string) {
+  return activePage === page ? 'active' : '';
+}
+---
+<header>
+  <div class="header-inner">
+    <a href={`${base}/`} class="logo">Smart<span>Switch</span>24</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label={t.nav_aria} aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mainNav">
+      <a href={`${base}/`} class={activePage === 'home' ? 'active' : ''}>{t.nav_home}</a>
+      <a href={pages.stromvergleich} class={active('stromvergleich')}>{t.nav_electricity}</a>
+      <a href={pages.gasvergleich} class={active('gasvergleich')}>{t.nav_gas}</a>
+      <a href={pages.handyvertraege} class={active('handyvertraege')}>{t.nav_handyvertraege}</a>
+      <a href={pages.smartphones} class={active('smartphones')}>{t.nav_smartphones}</a>
+      <a href={pages.tablets} class={active('tablets')}>{t.nav_tablets}</a>
+      <a href={pages.smartwatches} class={active('smartwatches')}>{t.nav_smartwatches}</a>
+      <a href={pages.pauschalreisen} class={active('pauschalreisen')}>{t.nav_pauschalreisen}</a>
+      <a href={pages.finanzen} class={active('finanzen')}>{t.nav_finanzen}</a>
+      <a href={pages.blog} class={active('blog')}>{t.nav_blog}</a>
+
+      <div class="lang-switcher">
+        <a href={Astro.url.pathname.replace(`/${lang}/`, '/de/')} class={`lang-btn${lang === 'de' ? ' active' : ''}`}>DE</a>
+        <span class="lang-sep">|</span>
+        <a href={Astro.url.pathname.replace(`/${lang}/`, '/ar/')} class={`lang-btn${lang === 'ar' ? ' active' : ''}`}>AR</a>
+      </div>
+    </nav>
+  </div>
+</header>

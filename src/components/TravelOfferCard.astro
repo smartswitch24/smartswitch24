@@ -1,0 +1,32 @@
+---
+import type { TravelOffer } from '../config/affiliate-widgets';
+
+interface Props {
+  offer: TravelOffer;
+  lang: 'de' | 'ar';
+}
+const { offer, lang } = Astro.props;
+const cta = lang === 'de' ? offer.ctaDe : offer.ctaAr;
+const updatedLabel = lang === 'de' ? 'Zuletzt aktualisiert' : 'آخر تحديث';
+const nightsLabel = lang === 'de' ? 'Nächte' : 'ليالٍ';
+const fromLabel = lang === 'de' ? 'ab' : 'من';
+const airportLabel = lang === 'de' ? 'Abflug' : 'المغادرة';
+---
+<div class="offer-card travel-card">
+  <div class="travel-card__destination">✈️ {offer.destination}</div>
+  <div class="travel-card__hotel">{offer.hotelName}</div>
+  <div class="travel-card__meta">
+    <span>🌙 {offer.duration}</span>
+    <span>🛫 {offer.departureAirport}</span>
+    <span>🏢 {offer.provider}</span>
+  </div>
+  <div class="offer-card__price">{fromLabel} {offer.price}</div>
+  {offer.affiliateUrl ? (
+    <a href={offer.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">{cta}</a>
+  ) : (
+    <span class="btn btn-primary" style="opacity:.5;cursor:default;">{cta}</span>
+  )}
+  {offer.lastUpdated && (
+    <p class="offer-card__updated">{updatedLabel}: {offer.lastUpdated}</p>
+  )}
+</div>

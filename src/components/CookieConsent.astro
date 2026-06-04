@@ -1,0 +1,195 @@
+---
+interface Props {
+  lang: 'de' | 'ar';
+}
+
+const { lang } = Astro.props;
+
+const ui = {
+  de: {
+    title: 'Datenschutz & Cookies',
+    body: `Wir verwenden Google Analytics, um die Nutzung unserer Website zu analysieren und unser Angebot zu verbessern.
+           Durch Klick auf <strong>„Akzeptieren"</strong> stimmen Sie der Nutzung von Analyse-Cookies gemäß unserer
+           <a href="/de/datenschutz/">Datenschutzerklärung</a> zu. Technisch notwendige Cookies werden stets gesetzt.`,
+    accept: 'Akzeptieren',
+    reject: 'Ablehnen',
+  },
+  ar: {
+    title: 'الخصوصية وملفات الارتباط',
+    body: `نستخدم Google Analytics لتحليل استخدام موقعنا وتحسين خدماتنا.
+           بالنقر على <strong>«قبول»</strong> توافق على استخدام ملفات الارتباط التحليلية وفقًا لـ
+           <a href="/ar/datenschutz/">سياسة الخصوصية</a>. يتم دائمًا تعيين ملفات الارتباط الضرورية.`,
+    accept: 'قبول',
+    reject: 'رفض',
+  },
+} as const;
+
+const t = ui[lang];
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+---
+
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label={lang === 'de' ? 'Cookie-Hinweis' : 'إشعار ملفات الارتباط'} dir={dir}>
+  <div class="cb-inner">
+    <div class="cb-text">
+      <strong>{t.title}</strong>
+      <p set:html={t.body} />
+    </div>
+    <div class="cb-actions">
+      <button type="button" id="cookie-reject" class="cb-btn cb-btn--reject">{t.reject}</button>
+      <button type="button" id="cookie-accept" class="cb-btn cb-btn--accept">{t.accept}</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var banner = document.getElementById('cookie-banner');
+    var btnAccept = document.getElementById('cookie-accept');
+    var btnReject = document.getElementById('cookie-reject');
+
+    function grantConsent(value) {
+      var update = value === 'accepted'
+        ? { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' }
+        : { analytics_storage: 'denied',  ad_storage: 'denied',  ad_user_data: 'denied',  ad_personalization: 'denied'  };
+      if (window.gtag) {
+        window.gtag('consent', 'update', update);
+      } else {
+        (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: update });
+      }
+    }
+
+    function hideBanner() {
+      if (banner) banner.style.display = 'none';
+    }
+
+    function handleChoice(choice) {
+      try { localStorage.setItem('cookie_consent', choice); } catch (e) {}
+      grantConsent(choice);
+      hideBanner();
+    }
+
+    if (btnAccept) btnAccept.addEventListener('click', function () { handleChoice('accepted'); });
+    if (btnReject) btnReject.addEventListener('click', function () { handleChoice('rejected'); });
+
+    var stored;
+    try { stored = localStorage.getItem('cookie_consent'); } catch (e) {}
+    if (!stored && banner) banner.style.display = 'block';
+  })();
+</script>
+
+<style>
+  #cookie-banner {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #fff;
+    border-top: 3px solid #1a3a6b;
+    box-shadow: 0 -4px 28px rgba(0, 0, 0, 0.14);
+    padding: 1rem 1.25rem;
+  }
+
+  .cb-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cb-text {
+    flex: 1 1 280px;
+  }
+
+  .cb-text strong {
+    display: block;
+    color: #1a3a6b;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .cb-text p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  .cb-text a {
+    color: #1a3a6b;
+    text-decoration: underline;
+  }
+
+  .cb-text a:hover {
+    color: #f57c00;
+  }
+
+  .cb-actions {
+    display: flex;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .cb-btn {
+    padding: 0.55rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+
+  .cb-btn:focus-visible {
+    outline: 3px solid #f57c00;
+    outline-offset: 2px;
+  }
+
+  .cb-btn--accept {
+    background: #f57c00;
+    color: #fff;
+    border-color: #f57c00;
+  }
+
+  .cb-btn--accept:hover {
+    opacity: 0.88;
+  }
+
+  .cb-btn--reject {
+    background: transparent;
+    color: #1a3a6b;
+    border-color: #1a3a6b;
+  }
+
+  .cb-btn--reject:hover {
+    background: #f0f4fb;
+  }
+
+  #cookie-banner[dir="rtl"] .cb-text,
+  #cookie-banner[dir="rtl"] .cb-text p {
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .cb-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.875rem;
+    }
+
+    .cb-actions {
+      justify-content: stretch;
+    }
+
+    .cb-btn {
+      flex: 1;
+      text-align: center;
+    }
+  }
+</style>

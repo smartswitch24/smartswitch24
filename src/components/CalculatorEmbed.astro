@@ -1,0 +1,57 @@
+---
+interface Props {
+  lang: 'de' | 'ar';
+  title: string;
+  description?: string;
+  providerName?: string;
+  htmlCode?: string;
+  disclaimer?: string;
+}
+
+const { lang, title, description, providerName, htmlCode, disclaimer } = Astro.props;
+const hasWidget = htmlCode && htmlCode.trim().length > 0;
+
+const placeholderHint = {
+  de: 'Kein Widget konfiguriert — fügen Sie den Widget-Code als htmlCode-Prop ein.',
+  ar: 'لم يتم تكوين الأداة — أضف كود الأداة في خاصية htmlCode.',
+};
+---
+
+<!-- WIDGET PLACEHOLDER: {title}
+     Provider: {providerName || 'unset'}
+     Step 1: Obtain iframe or script tag from your affiliate provider.
+     Step 2: Pass it as the htmlCode prop on this CalculatorEmbed component.
+     Example usage in your page:
+       <CalculatorEmbed
+         lang="de"
+         title="..."
+         providerName="..."
+         htmlCode={`<iframe src="https://..." loading="lazy"></iframe>`}
+         disclaimer="..."
+       />
+     For CHECK24 script-based widgets, pass the div + script tags as htmlCode.
+-->
+
+<div class="widget-section" id="widget-begin">
+  <div class="widget-wrapper">
+    <h2>{title}</h2>
+    {description && <p class="sub">{description}</p>}
+
+    {hasWidget ? (
+      <div class="embed-responsive-wrapper">
+        <Fragment set:html={htmlCode} />
+      </div>
+    ) : (
+      <div class="embed-placeholder">
+        <div class="embed-placeholder__icon">⚙️</div>
+        <div class="embed-placeholder__title">{title}</div>
+        {providerName && <div class="embed-placeholder__provider">{providerName}</div>}
+        <div class="embed-placeholder__hint">{placeholderHint[lang]}</div>
+      </div>
+    )}
+
+    {disclaimer && (
+      <div class="embed-disclaimer">{disclaimer}</div>
+    )}
+  </div>
+</div>

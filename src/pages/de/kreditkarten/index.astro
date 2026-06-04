@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import FinanceDisclaimer from '../../../components/FinanceDisclaimer.astro';
+import TrustBar from '../../../components/TrustBar.astro';
+import FaqList from '../../../components/FaqList.astro';
+import CalculatorEmbed from '../../../components/CalculatorEmbed.astro';
+import { de as t } from '../../../i18n/de';
+import { kreditkartenWidget } from '../../../config/affiliate-widgets';
+
+const lang = 'de';
+const siteUrl = 'https://smartswitch24.de';
+const canonical = `${siteUrl}/de/kreditkarten/`;
+const alternateUrl = `${siteUrl}/ar/kreditkarten/`;
+const faqs = [
+  { q: t.kreditkarten_faq1_q, a: t.kreditkarten_faq1_a },
+  { q: t.kreditkarten_faq2_q, a: t.kreditkarten_faq2_a },
+];
+---
+<BaseLayout title={t.kreditkarten_meta_title} description={t.kreditkarten_meta_description} lang={lang} canonical={canonical} alternateUrl={alternateUrl}>
+  <Header lang={lang} activePage="finanzen" />
+  <FinanceDisclaimer lang={lang} />
+  <div class="page-header">
+    <div class="container">
+      <h1>{t.kreditkarten_page_title}</h1>
+      <p>{t.kreditkarten_page_subtitle}</p>
+    </div>
+  </div>
+  <CalculatorEmbed lang={lang} title={kreditkartenWidget.titleDe} description={kreditkartenWidget.descriptionDe} providerName={kreditkartenWidget.providerName} htmlCode={kreditkartenWidget.htmlCode} disclaimer={kreditkartenWidget.disclaimerDe} />
+  <section>
+    <div class="container">
+      <FaqList title={t.kreditkarten_faq_title} items={faqs} />
+      <p style="margin-top:24px;"><a href="/de/finanzen/" style="color:var(--color-primary);">← Zurück zu Finanzen</a></p>
+    </div>
+  </section>
+  <TrustBar lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>
