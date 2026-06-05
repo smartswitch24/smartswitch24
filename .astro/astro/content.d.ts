@@ -141,6 +141,27 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"ar/antalya-urlaub-tipps.md": {
+	id: "ar/antalya-urlaub-tipps.md";
+  slug: "ar/antalya-urlaub-tipps";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"ar/beste-reisezeit-hurghada.md": {
+	id: "ar/beste-reisezeit-hurghada.md";
+  slug: "ar/beste-reisezeit-hurghada";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"ar/familienurlaub-tuerkei-2026.md": {
+	id: "ar/familienurlaub-tuerkei-2026.md";
+  slug: "ar/familienurlaub-tuerkei-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "ar/gasvergleich-deutschland-2026.md": {
 	id: "ar/gasvergleich-deutschland-2026.md";
   slug: "ar/gasvergleich-deutschland-2026";
@@ -186,6 +207,27 @@ declare module 'astro:content' {
 "ar/stromvergleich-deutschland-2026.md": {
 	id: "ar/stromvergleich-deutschland-2026.md";
   slug: "ar/stromvergleich-deutschland-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/antalya-urlaub-tipps.md": {
+	id: "de/antalya-urlaub-tipps.md";
+  slug: "de/antalya-urlaub-tipps";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/beste-reisezeit-hurghada.md": {
+	id: "de/beste-reisezeit-hurghada.md";
+  slug: "de/beste-reisezeit-hurghada";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"de/familienurlaub-tuerkei-2026.md": {
+	id: "de/familienurlaub-tuerkei-2026.md";
+  slug: "de/familienurlaub-tuerkei-2026";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
