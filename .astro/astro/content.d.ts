@@ -162,6 +162,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"ar/pauschalreisen-tuerkei-2026.md": {
+	id: "ar/pauschalreisen-tuerkei-2026.md";
+  slug: "ar/pauschalreisen-tuerkei-2026";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "ar/strom-sparen-tipps.md": {
 	id: "ar/strom-sparen-tipps.md";
   slug: "ar/strom-sparen-tipps";
