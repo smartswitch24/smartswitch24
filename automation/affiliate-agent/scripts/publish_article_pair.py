@@ -41,7 +41,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from utils import (
-    REPO_ROOT, APPROVED_DIR, BLOG_DE, BLOG_AR, DRAFTS_DE, DRAFTS_AR,
+    REPO_ROOT, APPROVED_DIR, PENDING_DIR, BLOG_DE, BLOG_AR, DRAFTS_DE, DRAFTS_AR,
     DRAFTS_PUBLISHED_DE, DRAFTS_PUBLISHED_AR,
     parse_frontmatter, get_frontmatter_images,
     image_exists, check_duplicate, set_draft_false, log_action,
@@ -108,23 +108,34 @@ def _run_git(*args, check=True):
     )
 
 
-def check_git_state() -> dict:
+def check_git_state(allowed_paths: set = None) -> dict:
     """
     Verify no tracked files are modified/staged and branch is in sync.
 
-    Untracked files (status lines starting with '??') are intentionally
-    tolerated so that approval JSON files in automation/ do not block
-    publishing even when automation/ is not committed to the repo.
+    allowed_paths: POSIX paths relative to REPO_ROOT that are permitted to
+        appear dirty. Used to allow the expected pending→approved JSON move
+        for the slug being published without blocking the publish.
+
+    Untracked files (status lines starting with '??') are always tolerated.
     """
+    allowed = allowed_paths or set()
     try:
         status = _run_git("status", "--porcelain", check=False)
         if status.returncode != 0:
             return {"ok": False, "error": "git status failed"}
 
-        dirty_tracked = [
-            line for line in status.stdout.splitlines()
-            if line and not line.startswith("??")
-        ]
+        dirty_tracked = []
+        for line in status.stdout.splitlines():
+            if not line:
+                continue
+            if line.startswith("??"):
+                continue
+            # git status --porcelain: "XY path" — path starts at column 3
+            path_part = line[3:].strip()
+            if path_part in allowed:
+                continue
+            dirty_tracked.append(line)
+
         if dirty_tracked:
             return {
                 "ok": False,
@@ -161,6 +172,20 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
     de_dest = BLOG_DE   / f"{slug}.md"
     ar_dest = BLOG_AR   / f"{slug}.md"
     images  = [i for i in approval.get("images", []) if i]
+
+    # POSIX paths for this slug's approval JSONs (relative to REPO_ROOT).
+    # These are whitelisted in the git dirty-state check so that a
+    # pending→approved move done by process_approval.py does not block publishing.
+    approved_json_path = (APPROVED_DIR / f"{slug}.json").relative_to(REPO_ROOT).as_posix()
+    pending_json_path  = (PENDING_DIR  / f"{slug}.json").relative_to(REPO_ROOT).as_posix()
+    allowed_git_paths  = {approved_json_path, pending_json_path}
+
+    # ── Git state check (per-slug, knows the allowed approval JSON paths) ────
+    if not dry_run:
+        state = check_git_state(allowed_paths=allowed_git_paths)
+        if not state["ok"]:
+            return {"success": False, "slug": slug,
+                    "error": f"Git state error: {state['error']}"}
 
     # ── Pre-flight checks ────────────────────────────────────────────────────
     if not de_src.exists():
@@ -207,6 +232,13 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
         encoding="utf-8",
     )
 
+    # ── Mark approval PUBLISHED (written before commit so it lands in the same commit) ──
+    approval["status"]       = "PUBLISHED"
+    approval["published_at"] = datetime.now(timezone.utc).isoformat()
+    (APPROVED_DIR / f"{slug}.json").write_text(
+        json.dumps(approval, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
     # ── Archive drafts + Git commit + push ───────────────────────────────────
     archived_de = DRAFTS_PUBLISHED_DE / f"{slug}.md"
     archived_ar = DRAFTS_PUBLISHED_AR / f"{slug}.md"
@@ -222,19 +254,15 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
         _run_git("add",
                  str(de_dest.relative_to(REPO_ROOT)),
                  str(ar_dest.relative_to(REPO_ROOT)))
+        # Include approval JSON in commit (check=False: may be untracked)
+        _run_git("add", approved_json_path, check=False)
+        _run_git("rm", "--cached", "--quiet", pending_json_path, check=False)
         _run_git("commit", "-m", f"publish travel article pair: {slug}")
         _run_git("push", "origin", "main")
     except subprocess.CalledProcessError as exc:
         log_action(slug, "publish", f"GIT_ERROR: {exc.stderr.strip()}")
         return {"success": False, "slug": slug,
                 "error": f"Git operation failed: {exc.stderr.strip()}"}
-
-    # ── Mark approval PUBLISHED ───────────────────────────────────────────────
-    approval["status"]       = "PUBLISHED"
-    approval["published_at"] = datetime.now(timezone.utc).isoformat()
-    (APPROVED_DIR / f"{slug}.json").write_text(
-        json.dumps(approval, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
 
     log_action(slug, "publish", "PUBLISHED")
     return {
@@ -279,13 +307,6 @@ def main():
         approved_files = [f for f in approved_files if f.stem == args.slug]
         if not approved_files:
             print(f"No approved article for slug '{args.slug}'.")
-            sys.exit(1)
-
-    if not args.dry_run:
-        state = check_git_state()
-        if not state["ok"]:
-            print(f"[FAIL] Git state error: {state['error']}")
-            print("Fix git state before publishing.")
             sys.exit(1)
 
     results = []
