@@ -7,7 +7,8 @@
   "images": [
     "/Images/Travel/01-hurghada-underwater-sea-turtle.webp"
   ],
-  "status": "APPROVED",
+  "status": "PUBLISHED",
   "created_at": "2026-06-06T10:01:19.389279+00:00",
-  "processed_at": "2026-06-06T12:10:31.505009+00:00"
+  "processed_at": "2026-06-06T12:10:31.505009+00:00",
+  "published_at": "2026-06-06T12:12:24.696598+00:00"
 }
