@@ -3,26 +3,33 @@ Publish approved article pairs to the live blog directories.
 
 Publishing checklist (all must pass before any file is written):
   1. Approval JSON exists in approved/ with status APPROVED
-  2. Git working tree is clean
+  2. Git working tree has no modified tracked files
+     (untracked files such as automation/affiliate-agent/ are tolerated)
   3. Local branch is synchronized with remote
   4. German draft file exists
   5. Arabic draft file exists
   6. All referenced images exist in public/Images/
   7. No duplicate slug or similar title already published
 
-On success:
-  • content/drafts/travel/de/{slug}.md  →  src/content/blog/de/{slug}.md
-  • content/drafts/travel/ar/{slug}.md  →  src/content/blog/ar/{slug}.md
-  • draft: true  changed to  draft: false  in both files
-  • Original draft files are NOT deleted
-  • git add / git commit / git push  (skipped in --dry-run)
-  • Approval JSON status updated to PUBLISHED
+On success the LIVE copy is normalized automatically — the draft is NOT touched:
+  • draft: true       →  draft: false
+  • slug:             →  de/{slug}  /  ar/{slug}
+  • category:         →  reisen  (lowercase, unquoted)
+  • pubDate:          →  today's date in YYYY-MM-DD (UTC, at publish time)
+
+File moves:
+  content/drafts/travel/de/{slug}.md  →  src/content/blog/de/{slug}.md
+  content/drafts/travel/ar/{slug}.md  →  src/content/blog/ar/{slug}.md
+
+git add / git commit / git push  (skipped in --dry-run)
+Approval JSON status updated to PUBLISHED.
 
 Usage:
     python publish_article_pair.py [--dry-run] [--slug SLUG]
 """
 import argparse
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -34,6 +41,55 @@ from utils import (
     parse_frontmatter, get_frontmatter_images,
     image_exists, check_duplicate, set_draft_false, log_action,
 )
+
+# ---------------------------------------------------------------------------
+# Frontmatter normalization helpers
+# ---------------------------------------------------------------------------
+
+def _in_frontmatter(content: str, transform) -> str:
+    """Apply transform() to the frontmatter body and reassemble the file."""
+    m = re.match(r'^(---\s*\n)(.*?)\n(---)', content, re.DOTALL)
+    if not m:
+        return content
+    return m.group(1) + transform(m.group(2)) + '\n' + m.group(3) + content[m.end():]
+
+
+def _set_field(content: str, field: str, value: str) -> str:
+    """Replace field: <anything> (quoted or unquoted) with field: value."""
+    def transform(fm):
+        return re.sub(
+            rf'^{re.escape(field)}:\s*"?[^\n"]+"?\s*$',
+            f'{field}: {value}',
+            fm,
+            flags=re.MULTILINE,
+        )
+    return _in_frontmatter(content, transform)
+
+
+def _normalize_category(content: str) -> str:
+    """Lowercase category value and strip surrounding quotes."""
+    def transform(fm):
+        return re.sub(
+            r'^(category:\s*)"?(\w+)"?\s*$',
+            lambda m: f'category: {m.group(2).lower()}',
+            fm,
+            flags=re.MULTILINE,
+        )
+    return _in_frontmatter(content, transform)
+
+
+def _prepare_content(content: str, slug_with_prefix: str, pub_date: str) -> str:
+    """
+    Apply all publish-time frontmatter normalizations.
+
+    Order matters — set_draft_false runs first on the raw content.
+    """
+    content = set_draft_false(content)
+    content = _set_field(content, "slug", slug_with_prefix)
+    content = _normalize_category(content)
+    content = _set_field(content, "pubDate", pub_date)
+    return content
+
 
 # ---------------------------------------------------------------------------
 # Git helpers
@@ -48,18 +104,31 @@ def _run_git(*args, check=True):
 
 
 def check_git_state() -> dict:
-    """Verify working tree is clean and in sync with remote."""
+    """
+    Verify no tracked files are modified/staged and branch is in sync.
+
+    Untracked files (status lines starting with '??') are intentionally
+    tolerated so that approval JSON files in automation/ do not block
+    publishing even when automation/ is not committed to the repo.
+    """
     try:
         status = _run_git("status", "--porcelain", check=False)
         if status.returncode != 0:
             return {"ok": False, "error": "git status failed"}
-        if status.stdout.strip():
+
+        dirty_tracked = [
+            line for line in status.stdout.splitlines()
+            if line and not line.startswith("??")
+        ]
+        if dirty_tracked:
             return {
                 "ok": False,
-                "error": f"Git working tree is not clean:\n{status.stdout.strip()}",
+                "error": (
+                    "Git working tree has modified tracked files:\n"
+                    + "\n".join(dirty_tracked)
+                ),
             }
 
-        # Fetch silently to refresh remote refs
         _run_git("fetch", "--quiet", check=False)
 
         local  = _run_git("rev-parse", "HEAD",  check=False).stdout.strip()
@@ -75,6 +144,7 @@ def check_git_state() -> dict:
     except FileNotFoundError:
         return {"ok": False, "error": "git is not available in PATH"}
 
+
 # ---------------------------------------------------------------------------
 # Publishing logic
 # ---------------------------------------------------------------------------
@@ -87,7 +157,7 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
     ar_dest = BLOG_AR   / f"{slug}.md"
     images  = [i for i in approval.get("images", []) if i]
 
-    # Pre-flight checks
+    # ── Pre-flight checks ────────────────────────────────────────────────────
     if not de_src.exists():
         return {"success": False, "slug": slug,
                 "error": f"German draft not found: {de_src.relative_to(REPO_ROOT).as_posix()}"}
@@ -110,22 +180,29 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
     if dry_run:
         log_action(slug, "publish", "DRY-RUN: pre-flight passed", dry_run=True)
         return {
-            "success":  True,
-            "slug":     slug,
-            "dry_run":  True,
-            "de_src":   de_src.relative_to(REPO_ROOT).as_posix(),
-            "ar_src":   ar_src.relative_to(REPO_ROOT).as_posix(),
-            "de_dest":  de_dest.relative_to(REPO_ROOT).as_posix(),
-            "ar_dest":  ar_dest.relative_to(REPO_ROOT).as_posix(),
+            "success": True,
+            "slug":    slug,
+            "dry_run": True,
+            "de_src":  de_src.relative_to(REPO_ROOT).as_posix(),
+            "ar_src":  ar_src.relative_to(REPO_ROOT).as_posix(),
+            "de_dest": de_dest.relative_to(REPO_ROOT).as_posix(),
+            "ar_dest": ar_dest.relative_to(REPO_ROOT).as_posix(),
         }
 
-    # Write published files (draft: false)
+    # ── Normalize and write live files ───────────────────────────────────────
+    pub_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     BLOG_DE.mkdir(parents=True, exist_ok=True)
     BLOG_AR.mkdir(parents=True, exist_ok=True)
-    de_dest.write_text(set_draft_false(de_src.read_text(encoding="utf-8")), encoding="utf-8")
-    ar_dest.write_text(set_draft_false(ar_src.read_text(encoding="utf-8")), encoding="utf-8")
+    de_dest.write_text(
+        _prepare_content(de_src.read_text(encoding="utf-8"), f"de/{slug}", pub_date),
+        encoding="utf-8",
+    )
+    ar_dest.write_text(
+        _prepare_content(ar_src.read_text(encoding="utf-8"), f"ar/{slug}", pub_date),
+        encoding="utf-8",
+    )
 
-    # Git commit + push
+    # ── Git commit + push ─────────────────────────────────────────────────────
     try:
         _run_git("add",
                  str(de_dest.relative_to(REPO_ROOT)),
@@ -137,7 +214,7 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
         return {"success": False, "slug": slug,
                 "error": f"Git operation failed: {exc.stderr.strip()}"}
 
-    # Mark approval as PUBLISHED
+    # ── Mark approval PUBLISHED ───────────────────────────────────────────────
     approval["status"]       = "PUBLISHED"
     approval["published_at"] = datetime.now(timezone.utc).isoformat()
     (APPROVED_DIR / f"{slug}.json").write_text(
@@ -151,6 +228,7 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
         "de_dest": de_dest.relative_to(REPO_ROOT).as_posix(),
         "ar_dest": ar_dest.relative_to(REPO_ROOT).as_posix(),
     }
+
 
 # ---------------------------------------------------------------------------
 # Entry point
@@ -177,7 +255,7 @@ def main():
     ]
 
     if not approved_files:
-        print("No articles with status APPROVED (already all PUBLISHED, or none approved yet).")
+        print("No articles with status APPROVED.")
         return
 
     if args.slug:
@@ -186,11 +264,10 @@ def main():
             print(f"No approved article for slug '{args.slug}'.")
             sys.exit(1)
 
-    # Git state check before touching any files
     if not args.dry_run:
         state = check_git_state()
         if not state["ok"]:
-            print(f"✗ Git state error: {state['error']}")
+            print(f"[FAIL] Git state error: {state['error']}")
             print("Fix git state before publishing.")
             sys.exit(1)
 
@@ -205,10 +282,11 @@ def main():
         if result["success"]:
             if args.dry_run:
                 print(f"  [DRY-RUN] Would copy:")
-                print(f"    {result['de_src']}  →  {result['de_dest']}")
-                print(f"    {result['ar_src']}  →  {result['ar_dest']}")
-                print(f"  [DRY-RUN] git commit -m 'publish travel article pair: {slug}'")
-                print(f"  [DRY-RUN] git push origin main")
+                print(f"    {result['de_src']}  ->  {result['de_dest']}")
+                print(f"    {result['ar_src']}  ->  {result['ar_dest']}")
+                print(f"  [DRY-RUN] Normalizations applied at write time:")
+                print(f"    draft: false | slug prefixed | category: reisen | pubDate: <today>")
+                print(f"  [DRY-RUN] git commit + push skipped")
             else:
                 print(f"  [OK] {result['de_dest']}")
                 print(f"  [OK] {result['ar_dest']}")
@@ -220,7 +298,7 @@ def main():
     failed    = sum(1 for r in results if not r["success"])
     print(f"\nSummary: {len(results)} processed / {published} published / {failed} failed")
     if args.dry_run:
-        print("\n[DRY-RUN] No files were written and no git operations were performed.")
+        print("[DRY-RUN] No files written, no git operations performed.")
 
 
 if __name__ == "__main__":

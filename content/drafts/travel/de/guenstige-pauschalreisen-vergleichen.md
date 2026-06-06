@@ -1,7 +1,7 @@
 ---
 title: "Günstige Pauschalreisen vergleichen – So finden Sie die besten Angebote 2026"
 description: "Mit den richtigen Strategien sparen Sie bei Pauschalreisen bis zu 40%. Wir erklären, wann, wie und wo Sie die besten Reiseangebote finden – von Frühbuchern bis Last Minute."
-category: "Reisen"
+category: reisen
 tags:
   - Pauschalreise
   - Sparen
@@ -10,13 +10,15 @@ tags:
   - Last Minute
   - Tipps
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: guenstige-pauschalreisen-vergleichen
+slug: de/guenstige-pauschalreisen-vergleichen
 heroImage: /Images/Travel/20-travel-planning.webp
 heroImageAlt: "Reiseplanung Flatlay mit Weltkarte, Reisepass, Boarding Pass und Kamera auf Holztisch"
 heroImageTitle: "Reiseplanung – Tipps für günstige Pauschalreisen"
+schema_type: Article
+faq_schema: true
 ---
 
 # Günstige Pauschalreisen vergleichen – So finden Sie die besten Angebote 2026

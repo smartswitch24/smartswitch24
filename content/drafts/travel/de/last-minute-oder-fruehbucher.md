@@ -1,7 +1,7 @@
 ---
 title: "Last Minute oder Frühbucher – Was spart mehr Geld beim Urlaub 2026?"
 description: "Last Minute oder Frühbucher? Wir vergleichen beide Buchungsstrategien ehrlich: Wann spart man mehr, für wen lohnt sich was, und wie viel Prozent Ersparnis sind realistisch?"
-category: "Reisen"
+category: reisen
 tags:
   - Last Minute
   - Frühbucher
@@ -9,13 +9,15 @@ tags:
   - Pauschalreise
   - Buchungstipps
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: last-minute-oder-fruehbucher
+slug: de/last-minute-oder-fruehbucher
 heroImage: /Images/Travel/20-travel-planning.webp
 heroImageAlt: "Reiseplanung Flatlay von oben mit geöffneter Weltkarte, Reisepass, Boarding Pass, Sonnenbrille und Kamera auf Holztisch"
 heroImageTitle: "Urlaubsplanung – Last Minute oder Frühbucher?"
+schema_type: Article
+faq_schema: true
 ---
 
 # Last Minute oder Frühbucher – Was spart mehr Geld beim Urlaub 2026?

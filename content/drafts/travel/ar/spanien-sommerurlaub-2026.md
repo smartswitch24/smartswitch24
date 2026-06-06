@@ -1,21 +1,22 @@
 ---
 title: "إجازة صيفية في إسبانيا 2026 - أفضل الوجهات والشواطئ للعرب من ألمانيا"
 description: "دليل شامل للإجازة الصيفية في إسبانيا 2026: مايوركا، كوستا ديل سول، برشلونة، والأسعار. نصائح للعرب المسافرين من ألمانيا."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/08-costa-del-sol-spain.webp"
 heroImageAlt: "شاطئ كوستا ديل سول إسبانيا في الصيف مع مياه زرقاء وشمس ساطعة"
 heroImageTitle: "إجازة صيفية في إسبانيا 2026 - كوستا ديل سول"
-slug: "spanien-sommerurlaub-2026"
+slug: ar/spanien-sommerurlaub-2026
 canonical: "https://www.smartswitch24.de/ar/blog/spanien-sommerurlaub-2026/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/spanien-sommerurlaub-2026/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/spanien-sommerurlaub-2026/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # إجازة صيفية في إسبانيا 2026

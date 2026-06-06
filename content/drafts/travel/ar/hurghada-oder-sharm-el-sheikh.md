@@ -1,21 +1,22 @@
 ---
 title: "الغردقة أم شرم الشيخ؟ - مقارنة شاملة لأفضل وجهتي البحر الأحمر"
 description: "مقارنة تفصيلية بين الغردقة وشرم الشيخ 2026: الشواطئ، الغوص، الأسعار، الأجواء. اختر الوجهة المثالية للعرب المسافرين من ألمانيا."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/01-hurghada-underwater-sea-turtle.webp"
 heroImageAlt: "سلحفاة بحرية تحت الماء في الغردقة مصر - البحر الأحمر"
 heroImageTitle: "غوص في الغردقة - سلحفاة بحرية في البحر الأحمر"
-slug: "hurghada-oder-sharm-el-sheikh"
+slug: ar/hurghada-oder-sharm-el-sheikh
 canonical: "https://www.smartswitch24.de/ar/blog/hurghada-oder-sharm-el-sheikh/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/hurghada-oder-sharm-el-sheikh/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/hurghada-oder-sharm-el-sheikh/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # الغردقة أم شرم الشيخ؟

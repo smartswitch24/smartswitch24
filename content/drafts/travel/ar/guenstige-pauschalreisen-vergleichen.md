@@ -1,21 +1,22 @@
 ---
 title: "كيف تقارن عروض الرحلات الشاملة الرخيصة - دليل عملي 2026"
 description: "دليل عملي لمقارنة وإيجاد أرخص عروض الرحلات الشاملة في 2026. مواقع المقارنة، نصائح الحجز، وكيف توفر مئات اليوروهات. للعرب في ألمانيا."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/20-travel-planning.webp"
 heroImageAlt: "تخطيط رحلة وحجز عروض الرحلات الشاملة - مقارنة الأسعار"
 heroImageTitle: "مقارنة عروض الرحلات الشاملة الرخيصة 2026"
-slug: "guenstige-pauschalreisen-vergleichen"
+slug: ar/guenstige-pauschalreisen-vergleichen
 canonical: "https://www.smartswitch24.de/ar/blog/guenstige-pauschalreisen-vergleichen/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/guenstige-pauschalreisen-vergleichen/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/guenstige-pauschalreisen-vergleichen/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # كيف تقارن عروض الرحلات الشاملة الرخيصة

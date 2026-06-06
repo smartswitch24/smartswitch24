@@ -1,21 +1,22 @@
 ---
 title: "مايوركا أم تركيا؟ - مقارنة شاملة للوجهتين الأكثر شعبية"
 description: "مقارنة مفصلة بين مايوركا وتركيا كوجهتين سياحيتين 2026: الأسعار، الشواطئ، الطعام، الأجواء. أيهما أنسب للعرب المسافرين من ألمانيا؟"
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/10-mallorca-cala.webp"
 heroImageAlt: "خليج مايوركا الجميل بمياه فيروزية صافية وصخور بيضاء"
 heroImageTitle: "مايوركا أم تركيا - أيهما أفضل؟"
-slug: "mallorca-oder-tuerkei"
+slug: ar/mallorca-oder-tuerkei
 canonical: "https://www.smartswitch24.de/ar/blog/mallorca-oder-tuerkei/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/mallorca-oder-tuerkei/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/mallorca-oder-tuerkei/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # مايوركا أم تركيا؟

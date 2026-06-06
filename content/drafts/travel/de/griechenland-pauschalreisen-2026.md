@@ -1,7 +1,7 @@
 ---
 title: "Griechenland Pauschalreisen 2026 – Die beliebtesten Inseln im Vergleich"
 description: "Santorini, Rhodos, Kreta, Mykonos oder Korfu? Wir vergleichen Griechenlands beliebteste Urlaubsinseln für 2026 – mit Preisen, Stränden, Highlights und Empfehlungen."
-category: "Reisen"
+category: reisen
 tags:
   - Griechenland
   - Pauschalreise
@@ -10,13 +10,15 @@ tags:
   - Kreta
   - Inseln
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: griechenland-pauschalreisen-2026
+slug: de/griechenland-pauschalreisen-2026
 heroImage: /Images/Travel/05-santorini-greece.webp
 heroImageAlt: "Ikonische weiße Häuser mit blauen Kuppeln in Oia auf Santorini bei Sonnenuntergang über dem Ägäischen Meer"
 heroImageTitle: "Santorini Griechenland – Oia bei Sonnenuntergang"
+schema_type: Article
+faq_schema: true
 ---
 
 # Griechenland Pauschalreisen 2026 – Die beliebtesten Inseln im Vergleich

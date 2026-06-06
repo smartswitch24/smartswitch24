@@ -1,7 +1,7 @@
 ---
 title: "Türkei All Inclusive 2026 – Die besten Regionen und Resorts im Vergleich"
 description: "Welche Türkei-Region bietet das beste All-Inclusive-Erlebnis? Wir vergleichen Antalya, Alanya, Side und Bodrum – mit Preisen, Hotelempfehlungen und Reisetipps für 2026."
-category: "Reisen"
+category: reisen
 tags:
   - Türkei
   - All Inclusive
@@ -9,13 +9,15 @@ tags:
   - Pauschalreise
   - Resort
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: tuerkei-all-inclusive-vergleich-2026
+slug: de/tuerkei-all-inclusive-vergleich-2026
 heroImage: /Images/Travel/13-turkey-all-inclusive-resort.webp
 heroImageAlt: "Großzügige Pool-Anlage eines türkischen 5-Sterne All-Inclusive-Resorts mit Liegestühlen und Sonnenschirmen, Mittelmeer im Hintergrund"
 heroImageTitle: "Türkei All-Inclusive Resort – 5-Sterne Pool"
+schema_type: Article
+faq_schema: true
 ---
 
 # Türkei All Inclusive 2026 – Die besten Regionen und Resorts im Vergleich

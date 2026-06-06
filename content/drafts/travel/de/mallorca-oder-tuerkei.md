@@ -1,7 +1,7 @@
 ---
 title: "Mallorca oder Türkei – Wohin lohnt sich die Reise 2026?"
 description: "Mallorca oder Türkei – ein echter Vergleich: Strände, Preise, Reisezeit, Flugzeiten und Atmosphäre. Welches Ziel passt besser zu Ihrem Urlaub 2026?"
-category: "Reisen"
+category: reisen
 tags:
   - Mallorca
   - Türkei
@@ -9,13 +9,15 @@ tags:
   - Pauschalreise
   - Strand
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: mallorca-oder-tuerkei
+slug: de/mallorca-oder-tuerkei
 heroImage: /Images/Travel/10-mallorca-cala.webp
 heroImageAlt: "Luftaufnahme einer versteckten Cala auf Mallorca mit kristallklarem türkisem Wasser, weißem Sandgrund und Kiefern auf Kalksteinfelsen"
 heroImageTitle: "Mallorca Cala – Traumbucht auf der Baleareninsel"
+schema_type: Article
+faq_schema: true
 ---
 
 # Mallorca oder Türkei – Wohin lohnt sich die Reise 2026?

@@ -1,7 +1,7 @@
 ---
 title: "Spanien Sommerurlaub 2026 – Die besten Regionen für Sonne, Strand und Kultur"
 description: "Costa del Sol, Mallorca, Barcelona oder die Kanaren? Wir vergleichen Spaniens beliebteste Urlaubsregionen für den Sommer 2026 – mit Strandtipps, Preisen und Empfehlungen."
-category: "Reisen"
+category: reisen
 tags:
   - Spanien
   - Sommerurlaub
@@ -10,13 +10,15 @@ tags:
   - Barcelona
   - Pauschalreise
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: spanien-sommerurlaub-2026
+slug: de/spanien-sommerurlaub-2026
 heroImage: /Images/Travel/08-costa-del-sol-spain.webp
 heroImageAlt: "Goldener Sandstrand der Costa del Sol in Spanien mit azurblauem Mittelmeer und Palmen"
 heroImageTitle: "Costa del Sol Spanien – Mittelmeerküste im Sommer"
+schema_type: Article
+faq_schema: true
 ---
 
 # Spanien Sommerurlaub 2026 – Die besten Regionen für Sonne, Strand und Kultur

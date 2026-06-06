@@ -1,21 +1,22 @@
 ---
 title: "عروض رحلات اليونان الشاملة 2026 - دليل الجزر والأسعار"
 description: "دليل عروض رحلات اليونان الشاملة 2026 من ألمانيا. أفضل الجزر، الأسعار، التوقيت الأمثل ونصائح للعرب المقيمين في ألمانيا."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/05-santorini-greece.webp"
 heroImageAlt: "منازل زرقاء وبيضاء مميزة في سانتوريني اليونان مع البحر الأزرق"
 heroImageTitle: "إجازة في اليونان 2026 - عروض شاملة من ألمانيا"
-slug: "griechenland-pauschalreisen-2026"
+slug: ar/griechenland-pauschalreisen-2026
 canonical: "https://www.smartswitch24.de/ar/blog/griechenland-pauschalreisen-2026/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/griechenland-pauschalreisen-2026/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/griechenland-pauschalreisen-2026/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # عروض رحلات اليونان الشاملة 2026

@@ -1,21 +1,22 @@
 ---
 title: "مقارنة منتجعات أول إنكلوسف في تركيا 2026 - أنطاليا، ألانيا، بودروم، سيدي"
 description: "مقارنة شاملة لأفضل منتجعات أول إنكلوسف في تركيا 2026. أسعار، جودة، طعام، ومناطق ترفيهية. دليل للعرب المقيمين في ألمانيا."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/13-turkey-all-inclusive-resort.webp"
 heroImageAlt: "منتجع أول إنكلوسف فاخر في تركيا مع بركة سباحة وشاطئ خاص"
 heroImageTitle: "مقارنة منتجعات أول إنكلوسف في تركيا 2026"
-slug: "tuerkei-all-inclusive-vergleich-2026"
+slug: ar/tuerkei-all-inclusive-vergleich-2026
 canonical: "https://www.smartswitch24.de/ar/blog/tuerkei-all-inclusive-vergleich-2026/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/tuerkei-all-inclusive-vergleich-2026/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/tuerkei-all-inclusive-vergleich-2026/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # مقارنة منتجعات أول إنكلوسف في تركيا 2026

@@ -1,7 +1,7 @@
 ---
 title: "Hurghada oder Sharm El Sheikh – Welche Region passt besser zu Ihrem Urlaub?"
 description: "Hurghada oder Sharm El Sheikh? Wir vergleichen Strände, Preise, Tauchspots, Ausflüge und Atmosphäre der beiden beliebtesten Ägypten-Urlaubsregionen – mit klarer Empfehlung."
-category: "Reisen"
+category: reisen
 tags:
   - Ägypten
   - Hurghada
@@ -9,13 +9,15 @@ tags:
   - Pauschalreise
   - Rotes Meer
 draft: true
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
-slug: hurghada-oder-sharm-el-sheikh
+slug: de/hurghada-oder-sharm-el-sheikh
 heroImage: /Images/Travel/01-hurghada-underwater-sea-turtle.webp
 heroImageAlt: "Meeresschildkröte schwimmt über buntem Korallenriff im kristallklaren Roten Meer bei Hurghada, Ägypten"
 heroImageTitle: "Tauchen am Roten Meer – Hurghada"
+schema_type: Article
+faq_schema: true
 ---
 
 # Hurghada oder Sharm El Sheikh – Welche Region passt besser zu Ihrem Urlaub?

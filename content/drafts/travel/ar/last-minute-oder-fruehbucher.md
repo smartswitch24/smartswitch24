@@ -1,21 +1,22 @@
 ---
 title: "الحجز المبكر أم اللحظة الأخيرة؟ - أيهما يوفر أكثر في 2026"
 description: "مقارنة شاملة بين الحجز المبكر واللحظة الأخيرة للرحلات الشاملة. متى تحجز مبكراً؟ متى تنتظر؟ نصائح للعرب في ألمانيا للحصول على أفضل سعر."
-pubDate: "2026-06-05"
+pubDate: 2026-06-06
 draft: true
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/20-travel-planning.webp"
 heroImageAlt: "تخطيط رحلة سفر - حجز مبكر أم اللحظة الأخيرة"
 heroImageTitle: "الحجز المبكر أم اللحظة الأخيرة - أيهما أوفر؟"
-slug: "last-minute-oder-fruehbucher"
+slug: ar/last-minute-oder-fruehbucher
 canonical: "https://www.smartswitch24.de/ar/blog/last-minute-oder-fruehbucher/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/last-minute-oder-fruehbucher/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/last-minute-oder-fruehbucher/"
 schema_type: "Article"
 faq_schema: true
+author: SmartSwitch24
 ---
 
 # الحجز المبكر أم اللحظة الأخيرة؟
