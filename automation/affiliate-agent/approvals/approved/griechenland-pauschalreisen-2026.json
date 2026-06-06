@@ -7,7 +7,8 @@
   "images": [
     "/Images/Travel/05-santorini-greece.webp"
   ],
-  "status": "APPROVED",
+  "status": "PUBLISHED",
   "created_at": "2026-06-06T10:01:19.379889+00:00",
-  "processed_at": "2026-06-06T11:19:10.245213+00:00"
+  "processed_at": "2026-06-06T11:19:10.245213+00:00",
+  "published_at": "2026-06-06T11:34:30.004558+00:00"
 }
