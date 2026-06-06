@@ -1,0 +1,45 @@
+# SmartSwitch24 — OpenClaw Telegram Watcher — Example Cron Configuration
+#
+# STATUS: NOT ENABLED — example only.
+#
+# DO NOT activate until you have:
+#   1. Verified --send-pending --dry-run works on the Raspberry Pi
+#   2. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in your environment
+#   3. Confirmed at least one real message sends and arrives in Telegram
+#   4. Confirmed --process-command APPROVE:{slug} --dry-run works correctly
+#
+# ── How to enable ─────────────────────────────────────────────────────────────
+#   1. Open crontab editor:
+#        crontab -e
+#   2. Add the line below (adjust the repo path to match your Pi setup)
+#   3. Save and exit
+#
+# ── Environment variables ─────────────────────────────────────────────────────
+#   Cron does not load your shell profile, so env vars must be set explicitly.
+#   Option A — add them at the top of your crontab:
+#
+#     TELEGRAM_BOT_TOKEN=your_bot_token_here
+#     TELEGRAM_CHAT_ID=your_chat_id_here
+#
+#   Option B — source a .env file inside the command (see alternative below).
+#
+# ── Suggested cron (every 10 minutes) ────────────────────────────────────────
+
+*/10 * * * * cd /home/openclaw/openclaw-workspaces/affiliate-agent/smartswitch24 && python3 automation/affiliate-agent/scripts/openclaw_telegram_watcher.py --send-pending >> automation/affiliate-agent/logs/telegram-watcher.log 2>&1
+
+# ── Alternative: source a .env file ──────────────────────────────────────────
+# If you prefer to keep credentials in a file rather than the crontab:
+#
+# */10 * * * * cd /home/openclaw/openclaw-workspaces/affiliate-agent/smartswitch24 && export $(grep -v '^#' .env | xargs) && python3 automation/affiliate-agent/scripts/openclaw_telegram_watcher.py --send-pending >> automation/affiliate-agent/logs/telegram-watcher.log 2>&1
+#
+# With a .env file containing:
+#   TELEGRAM_BOT_TOKEN=your_bot_token_here
+#   TELEGRAM_CHAT_ID=your_chat_id_here
+#
+# ── Notes ─────────────────────────────────────────────────────────────────────
+#   - The script skips slugs already recorded in data/telegram_sent.json
+#   - It is safe to run repeatedly — idempotent by design
+#   - APPROVE / REJECT commands are still run manually:
+#       python3 automation/affiliate-agent/scripts/openclaw_telegram_watcher.py \
+#           --process-command APPROVE:{slug}
+#   - Real publishing is also manual — the watcher only runs a publish dry-run

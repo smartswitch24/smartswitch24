@@ -1,0 +1,227 @@
+"""
+Publish approved article pairs to the live blog directories.
+
+Publishing checklist (all must pass before any file is written):
+  1. Approval JSON exists in approved/ with status APPROVED
+  2. Git working tree is clean
+  3. Local branch is synchronized with remote
+  4. German draft file exists
+  5. Arabic draft file exists
+  6. All referenced images exist in public/Images/
+  7. No duplicate slug or similar title already published
+
+On success:
+  • content/drafts/travel/de/{slug}.md  →  src/content/blog/de/{slug}.md
+  • content/drafts/travel/ar/{slug}.md  →  src/content/blog/ar/{slug}.md
+  • draft: true  changed to  draft: false  in both files
+  • Original draft files are NOT deleted
+  • git add / git commit / git push  (skipped in --dry-run)
+  • Approval JSON status updated to PUBLISHED
+
+Usage:
+    python publish_article_pair.py [--dry-run] [--slug SLUG]
+"""
+import argparse
+import json
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from utils import (
+    REPO_ROOT, APPROVED_DIR, BLOG_DE, BLOG_AR, DRAFTS_DE, DRAFTS_AR,
+    parse_frontmatter, get_frontmatter_images,
+    image_exists, check_duplicate, set_draft_false, log_action,
+)
+
+# ---------------------------------------------------------------------------
+# Git helpers
+# ---------------------------------------------------------------------------
+
+def _run_git(*args, check=True):
+    return subprocess.run(
+        ["git", *args],
+        capture_output=True, text=True, cwd=REPO_ROOT,
+        check=check,
+    )
+
+
+def check_git_state() -> dict:
+    """Verify working tree is clean and in sync with remote."""
+    try:
+        status = _run_git("status", "--porcelain", check=False)
+        if status.returncode != 0:
+            return {"ok": False, "error": "git status failed"}
+        if status.stdout.strip():
+            return {
+                "ok": False,
+                "error": f"Git working tree is not clean:\n{status.stdout.strip()}",
+            }
+
+        # Fetch silently to refresh remote refs
+        _run_git("fetch", "--quiet", check=False)
+
+        local  = _run_git("rev-parse", "HEAD",  check=False).stdout.strip()
+        remote = _run_git("rev-parse", "@{u}",  check=False).stdout.strip()
+
+        if remote and local != remote:
+            return {
+                "ok": False,
+                "error": "Local branch is not synchronized with remote. Run 'git pull' first.",
+            }
+
+        return {"ok": True}
+    except FileNotFoundError:
+        return {"ok": False, "error": "git is not available in PATH"}
+
+# ---------------------------------------------------------------------------
+# Publishing logic
+# ---------------------------------------------------------------------------
+
+def publish_pair(approval: dict, dry_run: bool = False) -> dict:
+    slug    = approval["slug"]
+    de_src  = DRAFTS_DE / f"{slug}.md"
+    ar_src  = DRAFTS_AR / f"{slug}.md"
+    de_dest = BLOG_DE   / f"{slug}.md"
+    ar_dest = BLOG_AR   / f"{slug}.md"
+    images  = [i for i in approval.get("images", []) if i]
+
+    # Pre-flight checks
+    if not de_src.exists():
+        return {"success": False, "slug": slug,
+                "error": f"German draft not found: {de_src.relative_to(REPO_ROOT).as_posix()}"}
+    if not ar_src.exists():
+        return {"success": False, "slug": slug,
+                "error": f"Arabic draft not found: {ar_src.relative_to(REPO_ROOT).as_posix()}"}
+
+    missing = [img for img in images if not image_exists(img)]
+    if missing:
+        return {"success": False, "slug": slug,
+                "error": f"Missing images: {missing}"}
+
+    de_fm = parse_frontmatter(de_src)
+    ar_fm = parse_frontmatter(ar_src)
+    dup   = check_duplicate(slug, de_fm.get("title", slug), ar_fm.get("title", slug))
+    if dup["is_duplicate"]:
+        return {"success": False, "slug": slug,
+                "error": f"Duplicate detected: {dup['reason']}"}
+
+    if dry_run:
+        log_action(slug, "publish", "DRY-RUN: pre-flight passed", dry_run=True)
+        return {
+            "success":  True,
+            "slug":     slug,
+            "dry_run":  True,
+            "de_src":   de_src.relative_to(REPO_ROOT).as_posix(),
+            "ar_src":   ar_src.relative_to(REPO_ROOT).as_posix(),
+            "de_dest":  de_dest.relative_to(REPO_ROOT).as_posix(),
+            "ar_dest":  ar_dest.relative_to(REPO_ROOT).as_posix(),
+        }
+
+    # Write published files (draft: false)
+    BLOG_DE.mkdir(parents=True, exist_ok=True)
+    BLOG_AR.mkdir(parents=True, exist_ok=True)
+    de_dest.write_text(set_draft_false(de_src.read_text(encoding="utf-8")), encoding="utf-8")
+    ar_dest.write_text(set_draft_false(ar_src.read_text(encoding="utf-8")), encoding="utf-8")
+
+    # Git commit + push
+    try:
+        _run_git("add",
+                 str(de_dest.relative_to(REPO_ROOT)),
+                 str(ar_dest.relative_to(REPO_ROOT)))
+        _run_git("commit", "-m", f"publish travel article pair: {slug}")
+        _run_git("push", "origin", "main")
+    except subprocess.CalledProcessError as exc:
+        log_action(slug, "publish", f"GIT_ERROR: {exc.stderr.strip()}")
+        return {"success": False, "slug": slug,
+                "error": f"Git operation failed: {exc.stderr.strip()}"}
+
+    # Mark approval as PUBLISHED
+    approval["status"]       = "PUBLISHED"
+    approval["published_at"] = datetime.now(timezone.utc).isoformat()
+    (APPROVED_DIR / f"{slug}.json").write_text(
+        json.dumps(approval, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    log_action(slug, "publish", "PUBLISHED")
+    return {
+        "success": True,
+        "slug":    slug,
+        "de_dest": de_dest.relative_to(REPO_ROOT).as_posix(),
+        "ar_dest": ar_dest.relative_to(REPO_ROOT).as_posix(),
+    }
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Publish approved article pairs to the live blog"
+    )
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Preview only — no files written, no git operations")
+    parser.add_argument("--slug", metavar="SLUG",
+                        help="Publish only this specific slug")
+    args = parser.parse_args()
+
+    if not APPROVED_DIR.exists():
+        print("No approved approvals directory found.")
+        return
+
+    approved_files = sorted(APPROVED_DIR.glob("*.json"))
+    approved_files = [
+        f for f in approved_files
+        if json.loads(f.read_text(encoding="utf-8")).get("status") == "APPROVED"
+    ]
+
+    if not approved_files:
+        print("No articles with status APPROVED (already all PUBLISHED, or none approved yet).")
+        return
+
+    if args.slug:
+        approved_files = [f for f in approved_files if f.stem == args.slug]
+        if not approved_files:
+            print(f"No approved article for slug '{args.slug}'.")
+            sys.exit(1)
+
+    # Git state check before touching any files
+    if not args.dry_run:
+        state = check_git_state()
+        if not state["ok"]:
+            print(f"✗ Git state error: {state['error']}")
+            print("Fix git state before publishing.")
+            sys.exit(1)
+
+    results = []
+    for json_file in approved_files:
+        approval = json.loads(json_file.read_text(encoding="utf-8"))
+        slug     = approval["slug"]
+        print(f"\nPublishing: {slug}")
+        result   = publish_pair(approval, dry_run=args.dry_run)
+        results.append(result)
+
+        if result["success"]:
+            if args.dry_run:
+                print(f"  [DRY-RUN] Would copy:")
+                print(f"    {result['de_src']}  →  {result['de_dest']}")
+                print(f"    {result['ar_src']}  →  {result['ar_dest']}")
+                print(f"  [DRY-RUN] git commit -m 'publish travel article pair: {slug}'")
+                print(f"  [DRY-RUN] git push origin main")
+            else:
+                print(f"  [OK] {result['de_dest']}")
+                print(f"  [OK] {result['ar_dest']}")
+                print(f"  [OK] git push done")
+        else:
+            print(f"  [FAIL] {result['error']}")
+
+    published = sum(1 for r in results if r["success"] and not r.get("dry_run"))
+    failed    = sum(1 for r in results if not r["success"])
+    print(f"\nSummary: {len(results)} processed / {published} published / {failed} failed")
+    if args.dry_run:
+        print("\n[DRY-RUN] No files were written and no git operations were performed.")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,7 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# SmartSwitch24 automation runtime files
+automation/affiliate-agent/logs/*.log
+automation/affiliate-agent/data/telegram_sent.json
