@@ -10,7 +10,7 @@ tags:
   - Kreta
   - Inseln
 draft: false
-pubDate: 2026-03-01
+pubDate: 2026-06-06
 lang: de
 author: SmartSwitch24
 slug: de/griechenland-pauschalreisen-2026
