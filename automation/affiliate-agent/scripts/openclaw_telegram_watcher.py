@@ -23,6 +23,7 @@ Supported Telegram commands (sent via chat to the bot):
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -350,13 +351,33 @@ def _handle_publish(slug: str, token: str, chat_id: str) -> None:
 
 
 # ── Command dispatch ──────────────────────────────────────────────────────────
+def _normalize_command_text(text: str) -> str:
+    """
+    Normalize a Telegram message before command parsing.
+
+    Handles both direct-message and group-message formats:
+      /STATUS                           ->  STATUS
+      /STATUS@SMARTSWITCH24_BOT         ->  STATUS
+      /APPROVE:slug                     ->  APPROVE:slug
+      /APPROVE@SMARTSWITCH24_BOT:slug   ->  APPROVE:slug
+      STATUS                            ->  STATUS   (unchanged)
+      APPROVE:slug                      ->  APPROVE:slug  (unchanged)
+    """
+    t = text.strip()
+    if t.startswith("/"):
+        t = t[1:]
+    # Remove @BotName that may appear between command and :slug (or at end)
+    t = re.sub(r"@[A-Za-z0-9_]+", "", t, count=1)
+    return t
+
+
 def _dispatch_text(text: str, token: str, chat_id: str) -> bool:
     """
     Parse and dispatch a single Telegram message text.
     Returns True if recognized and handled, False if unknown.
     Command prefix is case-insensitive; slug is preserved as-is.
     """
-    stripped = text.strip()
+    stripped = _normalize_command_text(text)
     upper    = stripped.upper()
 
     if upper == "STATUS":
