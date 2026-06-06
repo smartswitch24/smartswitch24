@@ -5,12 +5,12 @@ pubDate: "2026-06-05"
 draft: false
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/01-hurghada-underwater-sea-turtle.webp"
 heroImageAlt: "سلحفاة بحرية تحت الماء في الغردقة مصر - البحر الأحمر"
 heroImageTitle: "غوص في الغردقة - سلحفاة بحرية في البحر الأحمر"
-slug: "hurghada-oder-sharm-el-sheikh"
+slug: ar/hurghada-oder-sharm-el-sheikh
 canonical: "https://www.smartswitch24.de/ar/blog/hurghada-oder-sharm-el-sheikh/"
 hreflang_de: "https://www.smartswitch24.de/de/blog/hurghada-oder-sharm-el-sheikh/"
 hreflang_ar: "https://www.smartswitch24.de/ar/blog/hurghada-oder-sharm-el-sheikh/"
