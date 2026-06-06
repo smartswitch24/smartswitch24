@@ -355,19 +355,25 @@ def _normalize_command_text(text: str) -> str:
     """
     Normalize a Telegram message before command parsing.
 
-    Handles both direct-message and group-message formats:
-      /STATUS                           ->  STATUS
-      /STATUS@SMARTSWITCH24_BOT         ->  STATUS
-      /APPROVE:slug                     ->  APPROVE:slug
-      /APPROVE@SMARTSWITCH24_BOT:slug   ->  APPROVE:slug
-      STATUS                            ->  STATUS   (unchanged)
-      APPROVE:slug                      ->  APPROVE:slug  (unchanged)
+    Handles direct-message, group colon-format, and group space-format:
+      /STATUS                                    ->  STATUS
+      /STATUS@SMARTSWITCH24_BOT                  ->  STATUS
+      /APPROVE:slug                              ->  APPROVE:slug
+      /APPROVE@SMARTSWITCH24_BOT:slug            ->  APPROVE:slug
+      /approve@SMARTSWITCH24_BOT slug            ->  approve:slug
+      /publish@SMARTSWITCH24_BOT slug            ->  publish:slug
+      STATUS                                     ->  STATUS   (unchanged)
+      APPROVE:slug                               ->  APPROVE:slug  (unchanged)
     """
     t = text.strip()
     if t.startswith("/"):
         t = t[1:]
-    # Remove @BotName that may appear between command and :slug (or at end)
-    t = re.sub(r"@[A-Za-z0-9_]+", "", t, count=1)
+    # Remove @BotName (appears between command and :slug, before space-slug, or at end)
+    t = re.sub(r"@[A-Za-z0-9_]+", "", t, count=1).strip()
+    # Convert space-separated "COMMAND slug" to "COMMAND:slug" (Telegram group format)
+    if " " in t and ":" not in t:
+        cmd, _, slug = t.partition(" ")
+        t = f"{cmd}:{slug.strip()}"
     return t
 
 
