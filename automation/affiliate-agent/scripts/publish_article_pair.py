@@ -21,6 +21,10 @@ File moves:
   content/drafts/travel/de/{slug}.md  →  src/content/blog/de/{slug}.md
   content/drafts/travel/ar/{slug}.md  →  src/content/blog/ar/{slug}.md
 
+Draft archival (same commit):
+  content/drafts/travel/de/{slug}.md  →  content/drafts/travel/published/de/{slug}.md
+  content/drafts/travel/ar/{slug}.md  →  content/drafts/travel/published/ar/{slug}.md
+
 git add / git commit / git push  (skipped in --dry-run)
 Approval JSON status updated to PUBLISHED.
 
@@ -38,6 +42,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from utils import (
     REPO_ROOT, APPROVED_DIR, BLOG_DE, BLOG_AR, DRAFTS_DE, DRAFTS_AR,
+    DRAFTS_PUBLISHED_DE, DRAFTS_PUBLISHED_AR,
     parse_frontmatter, get_frontmatter_images,
     image_exists, check_duplicate, set_draft_false, log_action,
 )
@@ -202,8 +207,18 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
         encoding="utf-8",
     )
 
-    # ── Git commit + push ─────────────────────────────────────────────────────
+    # ── Archive drafts + Git commit + push ───────────────────────────────────
+    archived_de = DRAFTS_PUBLISHED_DE / f"{slug}.md"
+    archived_ar = DRAFTS_PUBLISHED_AR / f"{slug}.md"
     try:
+        DRAFTS_PUBLISHED_DE.mkdir(parents=True, exist_ok=True)
+        DRAFTS_PUBLISHED_AR.mkdir(parents=True, exist_ok=True)
+        _run_git("mv",
+                 str(de_src.relative_to(REPO_ROOT)),
+                 str(archived_de.relative_to(REPO_ROOT)))
+        _run_git("mv",
+                 str(ar_src.relative_to(REPO_ROOT)),
+                 str(archived_ar.relative_to(REPO_ROOT)))
         _run_git("add",
                  str(de_dest.relative_to(REPO_ROOT)),
                  str(ar_dest.relative_to(REPO_ROOT)))
@@ -223,10 +238,12 @@ def publish_pair(approval: dict, dry_run: bool = False) -> dict:
 
     log_action(slug, "publish", "PUBLISHED")
     return {
-        "success": True,
-        "slug":    slug,
-        "de_dest": de_dest.relative_to(REPO_ROOT).as_posix(),
-        "ar_dest": ar_dest.relative_to(REPO_ROOT).as_posix(),
+        "success":     True,
+        "slug":        slug,
+        "de_dest":     de_dest.relative_to(REPO_ROOT).as_posix(),
+        "ar_dest":     ar_dest.relative_to(REPO_ROOT).as_posix(),
+        "de_archived": archived_de.relative_to(REPO_ROOT).as_posix(),
+        "ar_archived": archived_ar.relative_to(REPO_ROOT).as_posix(),
     }
 
 
@@ -290,6 +307,8 @@ def main():
             else:
                 print(f"  [OK] {result['de_dest']}")
                 print(f"  [OK] {result['ar_dest']}")
+                print(f"  [OK] draft archived → {result['de_archived']}")
+                print(f"  [OK] draft archived → {result['ar_archived']}")
                 print(f"  [OK] git push done")
         else:
             print(f"  [FAIL] {result['error']}")

@@ -12,8 +12,10 @@ SCRIPTS_DIR = Path(__file__).resolve().parent          # .../scripts
 AGENT_DIR   = SCRIPTS_DIR.parent                       # .../affiliate-agent
 REPO_ROOT   = AGENT_DIR.parent.parent                  # .../smartswitch24
 
-DRAFTS_DE = REPO_ROOT / "content" / "drafts" / "travel" / "de"
-DRAFTS_AR = REPO_ROOT / "content" / "drafts" / "travel" / "ar"
+DRAFTS_DE           = REPO_ROOT / "content" / "drafts" / "travel" / "de"
+DRAFTS_AR           = REPO_ROOT / "content" / "drafts" / "travel" / "ar"
+DRAFTS_PUBLISHED_DE = REPO_ROOT / "content" / "drafts" / "travel" / "published" / "de"
+DRAFTS_PUBLISHED_AR = REPO_ROOT / "content" / "drafts" / "travel" / "published" / "ar"
 BLOG_DE   = REPO_ROOT / "src" / "content" / "blog" / "de"
 BLOG_AR   = REPO_ROOT / "src" / "content" / "blog" / "ar"
 IMAGES_DIR = REPO_ROOT / "public" / "Images"
@@ -148,29 +150,47 @@ def check_duplicate(slug: str, de_title: str, ar_title: str) -> dict:
     Return {"is_duplicate": bool, "reason": str}.
 
     Checks:
-      1. Same slug already in blog/de or blog/ar
-      2. German title similar to any existing published title
+      1. Slug conflict in live blog or published draft archive
+      2. Title similarity across live blog, published archive, and active drafts
+         (the current slug is excluded from active-draft title checks)
     """
-    # 1. Slug check (fastest)
-    for target in (BLOG_DE / f"{slug}.md", BLOG_AR / f"{slug}.md"):
+    # 1. Slug check — live blog + published archive
+    slug_targets = [
+        BLOG_DE             / f"{slug}.md",
+        BLOG_AR             / f"{slug}.md",
+        DRAFTS_PUBLISHED_DE / f"{slug}.md",
+        DRAFTS_PUBLISHED_AR / f"{slug}.md",
+    ]
+    for target in slug_targets:
         if target.exists():
             return {
                 "is_duplicate": True,
-                "reason": f"Slug '{slug}' is already published ({target.relative_to(REPO_ROOT).as_posix()})",
+                "reason": f"Slug '{slug}' already exists ({target.relative_to(REPO_ROOT).as_posix()})",
             }
 
-    # 2. Title-similarity check across published blog
-    for blog_dir in (BLOG_DE, BLOG_AR):
-        if not blog_dir.exists():
+    # 2. Title-similarity check
+    # (skip_current=True: ignore the article being published from active drafts)
+    check_dirs = [
+        (BLOG_DE,             False),
+        (BLOG_AR,             False),
+        (DRAFTS_PUBLISHED_DE, False),
+        (DRAFTS_PUBLISHED_AR, False),
+        (DRAFTS_DE,           True),
+        (DRAFTS_AR,           True),
+    ]
+    for check_dir, skip_current in check_dirs:
+        if not check_dir.exists():
             continue
-        for md in blog_dir.glob("*.md"):
+        for md in check_dir.glob("*.md"):
+            if skip_current and md.stem == slug:
+                continue
             fm = parse_frontmatter(md)
             existing = fm.get("title", "")
             if existing and _titles_similar(de_title, existing):
                 return {
                     "is_duplicate": True,
                     "reason": (
-                        f"Title similar to existing article '{existing}' "
+                        f"Title similar to '{existing}' "
                         f"({md.relative_to(REPO_ROOT).as_posix()})"
                     ),
                 }
