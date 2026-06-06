@@ -5,7 +5,7 @@ pubDate: "2026-06-05"
 draft: false
 lang: ar
 direction: rtl
-category: "Reisen"
+category: reisen
 category_ar: "السفر"
 heroImage: "/Images/Travel/05-santorini-greece.webp"
 heroImageAlt: "منازل زرقاء وبيضاء مميزة في سانتوريني اليونان مع البحر الأزرق"
