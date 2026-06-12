@@ -170,7 +170,7 @@ Kreta ist die beste Wahl für aktive Urlauber: Wandern durch die Samaria-Schluch
 
 Griechenland bleibt 2026 eine der sichersten Entscheidungen für den Sommerurlaub. Egal ob Sie die Romantik Santorinis, die Geschichte Rhodos', die Naturwunder Kretas oder die Entspannung Korfus suchen – das Land hat für jeden Urlaubertyp etwas Unvergessliches zu bieten.
 
-Interessieren Sie sich für Vergleiche mit anderen Mittelmeerzielen? Lesen Sie unsere Artikel über [Spanien Sommerurlaub 2026](/de/blog/spanien-sommerurlaub-2026/), [Mallorca oder Türkei](/de/blog/mallorca-oder-tuerkei/) oder erfahren Sie, wie Sie [günstige Pauschalreisen vergleichen](/de/blog/guenstige-pauschalreisen-vergleichen/) können.
+Interessieren Sie sich für Vergleiche mit anderen Mittelmeerzielen? Lesen Sie unsere Artikel über [Mallorca oder Türkei](/de/blog/mallorca-oder-tuerkei/), [Antalya Urlaub Tipps 2026](/de/blog/antalya-urlaub-tipps/) oder erfahren Sie, wie Sie [günstige Pauschalreisen vergleichen](/de/blog/guenstige-pauschalreisen-vergleichen/) können.
 
 ---
 

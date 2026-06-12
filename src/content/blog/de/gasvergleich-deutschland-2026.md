@@ -146,4 +146,14 @@ Für langfristige Ersparnis:
 
 Gasheizungen älter als 20 Jahre sollten auf Austausch geprüft werden. Moderne Gasbrennwertkessel sind 20–30 % effizienter als ältere Heizungen. Und wer langfristig plant: Wärmepumpen in gut gedämmten Gebäuden sind beim aktuellen Strom-Gas-Preisverhältnis oft wirtschaftlich.
 
+---
+
+Weitere Empfehlungen:
+
+- [Gas anmelden nach Umzug – Was Sie sofort erledigen müssen](/de/blog/gas-anmelden-nach-umzug/)
+- [Strom anmelden nach Umzug – Checkliste und Schritt-für-Schritt-Anleitung](/de/blog/strom-anmelden-nach-umzug/)
+- [Grundversorgung oder Stromanbieter wechseln – Was kostet mehr?](/de/blog/grundversorgung-oder-stromanbieter-wechseln/)
+
+---
+
 Mit dem richtigen Gastarif und diesen Spartipps können Sie Ihre Heizkosten in einem Winter um mehrere Hundert Euro senken. Den ersten Schritt machen Sie mit einem aktuellen [Gaspreisvergleich](/de/gasvergleich/).

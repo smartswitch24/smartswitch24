@@ -223,7 +223,8 @@ Hurghada ist einer der sonnigsten Orte der Welt. Im Sommer sind es bis zu 12–1
 
 - [Hurghada oder Sharm el-Sheikh – Welches Ziel passt besser?](/de/blog/hurghada-oder-sharm-el-sheikh/)
 - [Günstige Pauschalreisen vergleichen – So finden Sie die besten Angebote](/de/blog/guenstige-pauschalreisen-vergleichen/)
-- [Last Minute oder Frühbucher – Was spart mehr Geld?](/de/blog/last-minute-oder-fruehbucher/)
+- [Beste Reisezeit Hurghada für Familien – Monatsguide 2026](/de/blog/beste-reisezeit-hurghada-familien/)
+- [Last-Minute-Urlaub: So finden Sie die besten Angebote kurzfristig](/de/blog/last-minute-tipps/)
 
 ---
 

@@ -160,3 +160,12 @@ Eine vierköpfige Familie in Hamburg wechselt jedes Jahr aktiv. Durch konsequent
 Der Energiemarkt ändert sich schnell. Eine jährliche Überprüfung Ihres Tarifs – am besten drei Monate vor Vertragsende – ist die beste Gewohnheit. Nutzen Sie dazu unsere Vergleichsseiten für [Strom](/de/stromvergleich/) und [Gas](/de/gasvergleich/), um immer den aktuellen Marktstand im Blick zu behalten.
 
 Der Wechsel selbst kostet Sie 15 Minuten. Die Ersparnis können Sie für etwas Schöneres verwenden.
+
+---
+
+Weitere Empfehlungen:
+
+- [5 einfache Tipps zum Stromsparen und die Stromrechnung senken](/de/blog/strom-sparen-tipps/)
+- [Stromanbieter wechseln als Mieter – Rechte, Schritte und Tipps](/de/blog/stromanbieter-wechseln-als-mieter/)
+- [Grundversorgung oder Stromanbieter wechseln – Was kostet mehr?](/de/blog/grundversorgung-oder-stromanbieter-wechseln/)
+- [Strom anmelden nach Umzug – Checkliste und Schritt-für-Schritt-Anleitung](/de/blog/strom-anmelden-nach-umzug/)

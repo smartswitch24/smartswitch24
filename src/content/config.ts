@@ -27,6 +27,8 @@ const blog = defineCollection({
     cta: z
       .object({ text: z.string(), href: z.string(), label: z.string() })
       .optional(),
+    heroImage: z.string().optional(),
+    heroImageAlt: z.string().optional(),
   }),
 });
 

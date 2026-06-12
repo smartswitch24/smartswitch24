@@ -5,3 +5,6 @@ __pycache__/
 # SmartSwitch24 automation runtime files
 automation/affiliate-agent/logs/*.log
 automation/affiliate-agent/data/telegram_sent.json
+dist/
+.astro/
+.claude/settings.local.json

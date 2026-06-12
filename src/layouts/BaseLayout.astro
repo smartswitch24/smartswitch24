@@ -10,12 +10,14 @@ interface Props {
   alternateUrl?: string;
   noindex?: boolean;
   structuredData?: object;
+  heroImage?: string;
 }
 
-const { title, description, lang, canonical, alternateUrl, noindex = false, structuredData } = Astro.props;
+const { title, description, lang, canonical, alternateUrl, noindex = false, structuredData, heroImage } = Astro.props;
 const dir = lang === 'ar' ? 'rtl' : 'ltr';
 const alternateLang = lang === 'de' ? 'ar' : 'de';
 const siteUrl = 'https://smartswitch24.de';
+const ogImage = heroImage ? `${siteUrl}${encodeURI(heroImage)}` : `${siteUrl}/og-image.png`;
 const GTM_ID = 'GTM-W9K5H8DS';
 ---
 <!DOCTYPE html>
@@ -78,7 +80,7 @@ const GTM_ID = 'GTM-W9K5H8DS';
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content="SmartSwitch24" />
   <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'ar'} />
-  <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+  <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -86,7 +88,7 @@ const GTM_ID = 'GTM-W9K5H8DS';
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+  <meta name="twitter:image" content={ogImage} />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
